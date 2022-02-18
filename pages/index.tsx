@@ -2,6 +2,11 @@ import type { NextPage } from "next";
 // import { Box, Container, Typography } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
+/***
+ * !use the graph ql folder instead of hard coding
+ * ! turn back on MUI
+ */
+// import coaches from "../graphql/coaches";
 
 const AllCoachesQuery = gql`
   query coaches {
@@ -10,6 +15,10 @@ const AllCoachesQuery = gql`
       name
       email
       phone
+      specialties {
+        id
+        name
+      }
     }
   }
 `;
@@ -43,6 +52,18 @@ const Home: NextPage = () => {
               <div>
                 <p>{coach.email}</p>
                 <p>{coach.phone}</p>
+                <div className="flex">
+                  {coach.specialties.map((skill) => {
+                    return (
+                      <p
+                        key={skill.id}
+                        className="mt-2 rounded border-2 bg-white py-1 px-2"
+                      >
+                        {skill.name}
+                      </p>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ))}
