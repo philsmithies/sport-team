@@ -2,12 +2,14 @@ import prisma from "../../lib/prisma";
 import Link from "next/link";
 import UpdateForm from "../../components/UpdateForm";
 import ProfileComponent from "../../components/ProfileComponent";
+import UpdateSpecialties from "../../components/UpdateSpecialties";
 
 const Coach = ({ coach }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto h-screen">
       <ProfileComponent coach={coach} />
       <UpdateForm coach={coach} />
+      <UpdateSpecialties coach={coach} />
     </div>
   );
 };

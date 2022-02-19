@@ -50,48 +50,51 @@ const UpdateForm = ({ coach }) => {
     return <h1> {error} </h1>;
   }
   return (
-    <form
-      className="flex w-44 flex-col space-y-3 bg-red-50 "
-      onSubmit={handleSubmit}
-    >
-      <label>
-        Name:
-        <input
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          name="name"
-          placeholder={name}
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="text"
-          name="email"
-          placeholder={email}
-        />
-      </label>
-      <label>
-        Website:
-        <input
-          onChange={(e) => setWebsite(e.target.value)}
-          type="text"
-          name="website"
-          placeholder={website}
-        />
-      </label>
-      <label>
-        Phone:
-        <input
-          onChange={(e) => setPhone(e.target.value)}
-          type="number"
-          name="phone"
-          placeholder={phone}
-        />
-      </label>
-      <input type="submit" value="Update Coach" className="border-2" />
-    </form>
+    <div className="mt-10 flex flex-col items-center bg-red-700">
+      <h1 className="text-4xl">Update The Coach</h1>
+      <form
+        className="mt-4 flex w-44 flex-col space-y-3 bg-red-50 "
+        onSubmit={handleSubmit}
+      >
+        <label>
+          Name:
+          <input
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            name="name"
+            placeholder={name}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            name="email"
+            placeholder={email}
+          />
+        </label>
+        <label>
+          Website:
+          <input
+            onChange={(e) => setWebsite(e.target.value)}
+            type="text"
+            name="website"
+            placeholder={website}
+          />
+        </label>
+        <label>
+          Phone:
+          <input
+            onChange={(e) => setPhone(e.target.value)}
+            type="number"
+            name="phone"
+            placeholder={phone}
+          />
+        </label>
+        <input type="submit" value="Update Coach" className="border-2" />
+      </form>
+    </div>
   );
 };
 
