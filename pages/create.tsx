@@ -14,19 +14,23 @@ const CREATE_USER = gql`
   }
 `;
 
-const UserForm = () => {
+const CoachForm = () => {
   const [user, setUser] = useState({});
 
   const handleOnChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const [createUser, { data }] = useMutation(CREATE_USER);
+  const [createUser, { data, error }] = useMutation(CREATE_USER);
 
   const handleSubmit = (event) => {
     createUser({ variables: { data: { ...user } } });
     event.preventDefault();
   };
+
+  if (error) {
+    return <h1> {error} </h1>;
+  }
 
   return (
     <div className="container mx-auto">
@@ -59,4 +63,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default CoachForm;
