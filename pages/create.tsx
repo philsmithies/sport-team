@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
-
-const CREATE_USER = gql`
-  mutation CreateCoach($data: CoachCreateInput!) {
-    createCoach(data: $data) {
-      id
-      email
-      name
-      phone
-      website
-    }
-  }
-`;
+import { CREATE_COACH } from "../graphql/createCoach";
 
 const CoachForm = () => {
   const [user, setUser] = useState({});
@@ -21,7 +10,7 @@ const CoachForm = () => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const [createUser, { data, error }] = useMutation(CREATE_USER);
+  const [createUser, { data, error }] = useMutation(CREATE_COACH);
 
   const handleSubmit = (event) => {
     createUser({ variables: { data: { ...user } } });

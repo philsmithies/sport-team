@@ -1,33 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
-import { useState } from "react";
-
-const ALL_SPECIALTIES = gql`
-  query Query {
-    specialties {
-      id
-      name
-    }
-  }
-`;
-
-/**
- *  TODO refactor these two and we need a cache update
- */
-
-const UPDATE_SPECIALTIES = gql`
-  mutation UpdateCoach(
-    $data: CoachUpdateInput!
-    $where: CoachWhereUniqueInput!
-  ) {
-    updateCoach(data: $data, where: $where) {
-      specialties {
-        id
-        name
-      }
-    }
-  }
-`;
+import { UPDATE_SPECIALTIES } from "../../graphql/updateSpecialties";
+import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
 
 const AllSpecialties = ({ coach }) => {
   const { data, error, loading } = useQuery(ALL_SPECIALTIES);
@@ -46,6 +20,13 @@ const AllSpecialties = ({ coach }) => {
       },
     });
   };
+
+  const filteredSpecialties = data?.specialties.filter(
+    ({ id: specialty1 }) =>
+      !coach.specialties.some(({ id: specialty2 }) => specialty1 === specialty2)
+  );
+
+  console.log("the results are ", filteredSpecialties);
 
   if (error) {
     return <h1> {error} </h1>;
