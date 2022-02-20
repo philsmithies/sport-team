@@ -10,7 +10,7 @@ const ProfileComponent = ({ coach }) => {
       variables: {
         where: { id: coach.id },
         data: {
-          specialties: { delete: { id: specialtyId } },
+          specialties: { disconnect: { id: specialtyId } },
         },
       },
     });
