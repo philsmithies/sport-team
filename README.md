@@ -16,8 +16,8 @@ The first 5 todos are required, all the others are bonus tasks. Please don't cha
 - [x] Write graphql queries against https://localhost:3000/api<br>Use your queries manually or with the already installed codegen `yarn generate:types`.<br>You got one query in the graphql folder for free.
 - [ ] Create a UI to list all our coaches at Sport-Thieme with the Material-UI components (already installed)
 - [ ] Create a UI for a single coach with the Material-UI components (already installed)
-- [ ] Implement at least one mutation updating the coaches
-- [ ] Implement a mutation for adding specialties to the coach
+- [x] Implement at least one mutation updating the coaches
+- [x] Implement a mutation for adding specialties to the coach
 
 ### Bonus tasks for style points 😎
 
@@ -27,7 +27,7 @@ The first 5 todos are required, all the others are bonus tasks. Please don't cha
 
 ### Beyond bonus
 
-- [ ] Implement SSG or SSR
+- [] Implement SSG or SSR
 
 ## Installation
 

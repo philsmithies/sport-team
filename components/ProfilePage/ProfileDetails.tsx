@@ -4,9 +4,11 @@ import { REMOVE_SPECIALTY } from "../../graphql/removeSpecialty";
 import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
 import { SINGLE_COACH } from "../../graphql/singleCoach";
 import Router from "next/router";
+import { Grid, Typography, Container, Button, Box, Chip } from "@mui/material";
+import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
 const ProfileDetails = ({ coach }) => {
-  const { loading, error, data } = useQuery(SINGLE_COACH, {
+  const { error, data } = useQuery(SINGLE_COACH, {
     variables: { where: { id: coach.id } },
   });
   const [removeSpecialty] = useMutation(REMOVE_SPECIALTY);
@@ -27,40 +29,62 @@ const ProfileDetails = ({ coach }) => {
     Router.reload();
   };
 
-  if (error) {
-    return <h1> {error} </h1>;
-  }
-
-  /***
-   * TODO match variable naming away from 'skill'
-   */
+  if (error)
+    return (
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <Typography variant="h1">
+          Looks like there was a problem: {error.message}
+        </Typography>
+      </Grid>
+    );
 
   return (
-    <div className="mt-20 flex flex-col items-center justify-center bg-red-700">
-      <Link href="/" passHref>
-        <button className="mt-2 mb-2 rounded border-2 bg-white py-1 px-2 hover:bg-blue-500">
-          Back to all Coaches
-        </button>
-      </Link>
-      <h1 className="text-4xl">The Profile Page of: {coach.name}</h1>
+    <Container
+      maxWidth="md"
+      sx={{
+        marginTop: 5,
+        marginBottom: 20,
+        border: 2,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Box>
+        <Link href="/" passHref>
+          <Button variant="contained" size="large" sx={{ maxWidth: 300 }}>
+            Back to all Coaches
+          </Button>
+        </Link>
+      </Box>
+      <h1 className="text-4xl">Coach: {coach.name}</h1>
       <p className="mt-2">Phone:{coach.phone}</p>
       <p>Website:{coach.website}</p>
       <p>Email:{coach.email}</p>
       <p>Specialties:</p>
       <div className="flex w-4/12 justify-between">
-        {data?.coach.specialties.map((skill) => {
+        {data?.coach.specialties.map((specialty) => {
           return (
-            <p
-              key={skill.id}
-              className="mt-2 rounded border-2 bg-white py-1 px-2 hover:cursor-pointer hover:bg-red-500"
-              onClick={(e) => handleRemove(skill.id)}
-            >
-              {skill.name}
-            </p>
+            <Chip
+              icon={<SportsFootballIcon />}
+              key={specialty.id}
+              label={specialty.name}
+              component="a"
+              variant="outlined"
+              sx={{ height: 32 }}
+              onDelete={(e) => handleRemove(specialty.id)}
+            />
           );
         })}
       </div>
-    </div>
+    </Container>
   );
 };
 

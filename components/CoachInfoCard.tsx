@@ -1,8 +1,25 @@
 import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
 const CoachInfoCard = ({ coach }) => {
+  const SelectIcon = ({ skill }) => {
+    return (
+      <Chip
+        icon={
+          skill.name == "Rugby" ? <SportsFootballIcon /> : <AccountCircleIcon />
+        }
+        key={skill.id}
+        label={skill.name}
+        component="a"
+        variant="outlined"
+        clickable
+        sx={{ height: 32 }}
+      />
+    );
+  };
+
   return (
     <>
       <Grid
@@ -40,7 +57,9 @@ const CoachInfoCard = ({ coach }) => {
           <Box sx={{ marginLeft: 2, marginRight: 2 }}>
             <Typography>{coach.name}</Typography>
             <Link href={`mailto:${coach.email}`} passHref>
-              <Typography variant="body2">Email</Typography>
+              <Typography variant="body2" sx={{ color: "primary.main" }}>
+                Email
+              </Typography>
             </Link>
             <Box
               sx={{
@@ -52,16 +71,7 @@ const CoachInfoCard = ({ coach }) => {
             >
               <Typography variant="body2">Specialties:</Typography>
               {coach.specialties.map((skill) => {
-                return (
-                  <Chip
-                    key={skill.id}
-                    label={skill.name}
-                    component="a"
-                    variant="outlined"
-                    clickable
-                    sx={{ height: 20 }}
-                  />
-                );
+                return <SelectIcon key={skill.id} skill={skill} />;
               })}
             </Box>
           </Box>
