@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-micro";
 
-export const SINGLE_COACH = gql`
-  query Query($where: CoachWhereUniqueInput!) {
-    coach(where: $where) {
+export const ALL_COACHES = gql`
+  query Coaches {
+    coaches {
       id
       email
       name

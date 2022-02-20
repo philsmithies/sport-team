@@ -1,20 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-
-const UPDATE_COACH = gql`
-  mutation UpdateCoach(
-    $where: CoachWhereUniqueInput!
-    $data: CoachUpdateInput!
-  ) {
-    updateCoach(where: $where, data: $data) {
-      email
-      name
-    }
-  }
-`;
+import { UPDATE_COACH } from "../../graphql/updateCoach";
+import Router from "next/router";
 
 const UpdateForm = ({ coach }) => {
+  const [id, setId] = useState(coach.id);
   const [name, setName] = useState(coach.name);
   const [email, setEmail] = useState(coach.email);
   const [website, setWebsite] = useState(coach.website);
@@ -28,27 +19,27 @@ const UpdateForm = ({ coach }) => {
   //   setUpdatedCoach({ ...coach, [event.target.name]: event.target.value });
   // };
 
-  const [updateCoach, { data, error }] = useMutation(UPDATE_COACH);
+  const [updateCoach] = useMutation(UPDATE_COACH);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(coach);
-    updateCoach({
-      variables: {
-        where: { id: coach.id },
-        data: {
-          email: { set: email },
-          name: { set: name },
-          website: { set: website },
-          phone: { set: phone },
+    try {
+      updateCoach({
+        variables: {
+          where: { id: coach.id },
+          data: {
+            email: { set: email },
+            name: { set: name },
+            website: { set: website },
+            phone: { set: phone },
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    Router.reload();
   };
 
-  if (error) {
-    return <h1> {error} </h1>;
-  }
   return (
     <div className="mt-10 flex flex-col items-center bg-red-700">
       <h1 className="text-4xl">Update The Coach</h1>

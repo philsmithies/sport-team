@@ -1,15 +1,15 @@
 import prisma from "../../lib/prisma";
 import Link from "next/link";
-import UpdateForm from "../../components/UpdateForm";
-import ProfileComponent from "../../components/ProfileComponent";
-import UpdateSpecialties from "../../components/UpdateSpecialties";
+import UpdateForm from "../../components/ProfilePage/UpdateForm";
+import ProfileComponent from "../../components/ProfilePage/ProfileDetails";
+import AddSpecialties from "../../components/ProfilePage/AddSpecialties";
 
 const Coach = ({ coach }) => {
   return (
     <div className="container mx-auto h-screen">
       <ProfileComponent coach={coach} />
       <UpdateForm coach={coach} />
-      <UpdateSpecialties coach={coach} />
+      <AddSpecialties coach={coach} />
     </div>
   );
 };

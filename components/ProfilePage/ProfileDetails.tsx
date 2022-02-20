@@ -1,19 +1,30 @@
 import Link from "next/link";
-import { useMutation } from "@apollo/react-hooks";
-import { REMOVE_SPECIALTY } from "../graphql/removeSpecialty";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { REMOVE_SPECIALTY } from "../../graphql/removeSpecialty";
+import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
+import { SINGLE_COACH } from "../../graphql/singleCoach";
+import Router from "next/router";
 
-const ProfileComponent = ({ coach }) => {
-  const [removeSpecialty, { error }] = useMutation(REMOVE_SPECIALTY);
+const ProfileDetails = ({ coach }) => {
+  const { loading, error, data } = useQuery(SINGLE_COACH, {
+    variables: { where: { id: coach.id } },
+  });
+  const [removeSpecialty] = useMutation(REMOVE_SPECIALTY);
 
   const handleRemove = (specialtyId) => {
-    removeSpecialty({
-      variables: {
-        where: { id: coach.id },
-        data: {
-          specialties: { disconnect: { id: specialtyId } },
+    try {
+      removeSpecialty({
+        variables: {
+          where: { id: coach.id },
+          data: {
+            specialties: { disconnect: { id: specialtyId } },
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    Router.reload();
   };
 
   if (error) {
@@ -37,7 +48,7 @@ const ProfileComponent = ({ coach }) => {
       <p>Email:{coach.email}</p>
       <p>Specialties:</p>
       <div className="flex w-4/12 justify-between">
-        {coach.specialties?.map((skill) => {
+        {data?.coach.specialties.map((skill) => {
           return (
             <p
               key={skill.id}
@@ -53,4 +64,4 @@ const ProfileComponent = ({ coach }) => {
   );
 };
 
-export default ProfileComponent;
+export default ProfileDetails;

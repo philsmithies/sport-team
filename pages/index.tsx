@@ -3,34 +3,13 @@ import type { NextPage } from "next";
 import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
-
-/***
- * !use the graph ql folder instead of hard coding
- * ! turn back on MUI
- */
-// import coaches from "../graphql/coaches";
-
-const AllCoachesQuery = gql`
-  query coaches {
-    coaches {
-      id
-      name
-      email
-      phone
-      specialties {
-        id
-        name
-      }
-    }
-  }
-`;
+import { ALL_COACHES } from "../graphql/allCoaches";
+import CreateCoach from "../components/CreateCoach";
 
 const Home: NextPage = () => {
-  // gql useQuery import
-  const { data, error, loading } = useQuery(AllCoachesQuery);
+  const { data, error, loading } = useQuery(ALL_COACHES);
 
   if (loading) return <p>Loading...........</p>;
-
   if (error) return <p>Looks like there was a problem: {error.message}</p>;
 
   return (
@@ -74,6 +53,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           ))}
+          <CreateCoach />
         </div>
       </>
     </>

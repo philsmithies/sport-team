@@ -1,25 +1,23 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_COACH } from "../graphql/createCoach";
+import { ALL_COACHES } from "../graphql/allCoaches";
+import Router from "next/router";
 
-const CoachForm = () => {
+const CreateCoach = () => {
   const [user, setUser] = useState({});
 
   const handleOnChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
-  const [createUser, { data, error }] = useMutation(CREATE_COACH);
+  const [createUser] = useMutation(CREATE_COACH);
 
   const handleSubmit = (event) => {
-    createUser({ variables: { data: { ...user } } });
-    event.preventDefault();
+    createUser({
+      variables: { data: { ...user } },
+    });
   };
-
-  if (error) {
-    return <h1> {error} </h1>;
-  }
 
   return (
     <div className="container mx-auto">
@@ -52,4 +50,4 @@ const CoachForm = () => {
   );
 };
 
-export default CoachForm;
+export default CreateCoach;

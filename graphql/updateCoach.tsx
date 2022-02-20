@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-micro";
 
-export default gql`
+export const UPDATE_COACH = gql`
   mutation UpdateCoach(
     $data: CoachUpdateInput!
     $where: CoachWhereUniqueInput!
@@ -14,9 +14,10 @@ export default gql`
         name
         id
       }
-      /***
-        * ! DRY Potentially Merge both updates
-        */
     }
   }
 `;
+
+/***
+ * ! DRY Potentially Merge both updates
+ */
