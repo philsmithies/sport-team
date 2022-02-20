@@ -22,7 +22,7 @@ const NavBar = () => {
         }}
       >
         <Toolbar>
-          <Box mr={10}>
+          <Box mr={10} sx={{ flexGrow: 1 }}>
             <Image src={Logo} alt="Sport Thieme Logo" height={50} width={220} />
           </Box>
           <ButtonGroup size="large" aria-label="large button group">

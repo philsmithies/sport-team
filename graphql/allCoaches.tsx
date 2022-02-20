@@ -8,6 +8,10 @@ export const ALL_COACHES = gql`
       name
       phone
       website
+      street
+      streetNumber
+      zip
+      city
       specialties {
         id
         name
