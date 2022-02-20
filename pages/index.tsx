@@ -1,61 +1,60 @@
 import type { NextPage } from "next";
-// import { Box, Container, Typography } from "@mui/material";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
+import { Typography, CircularProgress, Grid, Container } from "@mui/material";
 import { ALL_COACHES } from "../graphql/allCoaches";
 import CreateCoach from "../components/CreateCoach";
+import CoachInfoCard from "../components/CoachInfoCard";
 
 const Home: NextPage = () => {
-  const { data, error, loading } = useQuery(ALL_COACHES);
+  const { data, error, loading } = useQuery(ALL_COACHES, {
+    variables: { take: 50 },
+  });
 
-  if (loading) return <p>Loading...........</p>;
-  if (error) return <p>Looks like there was a problem: {error.message}</p>;
+  if (loading)
+    return (
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <CircularProgress size={80} />
+      </Grid>
+    );
+
+  if (error)
+    return (
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <Typography variant="h1">
+          Looks like there was a problem: {error.message}
+        </Typography>
+      </Grid>
+    );
 
   return (
     <>
       <Head>
         <title>Sports Thieme: The Coaches</title>
       </Head>
-      <>
-        <div className="flex flex-col items-center bg-slate-700 p-10">
-          <h1 className="self-center pb-10 text-2xl text-yellow-500 underline">
-            All the coaches
-          </h1>
-          {data?.coaches.map((coach) => (
-            <div
-              key={coach.id}
-              className="mb-3 w-2/5 max-w-4xl rounded-xl border-2 border-white bg-red-700 p-3"
-            >
-              <div>
-                <p className="font-bold">{coach.name}</p>
-              </div>
-              <div>
-                <p>{coach.email}</p>
-                <p>{coach.phone}</p>
-                <div className="flex">
-                  {coach.specialties.map((skill) => {
-                    return (
-                      <p
-                        key={skill.id}
-                        className="mt-2 mr-2 rounded border-2 bg-white py-1 px-2"
-                      >
-                        {skill.name}
-                      </p>
-                    );
-                  })}
-                  <Link href={`/coach/${coach.id}`} passHref>
-                    <button className="mt-2 mr-2 rounded border-2 bg-yellow-500 py-1 px-2 hover:bg-slate-400">
-                      View Coach
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-          <CreateCoach />
-        </div>
-      </>
+      <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
+        <Typography variant="h4">All Coaches</Typography>
+        {data?.coaches.map((coach) => (
+          <CoachInfoCard coach={coach} key={coach.id} />
+        ))}
+      </Container>
     </>
   );
 };
