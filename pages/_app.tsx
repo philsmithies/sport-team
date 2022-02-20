@@ -1,13 +1,10 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-// import {
-//   createTheme,
-//   StyledEngineProvider,
-//   ThemeProvider,
-// } from "@mui/material";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import theme from "../styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -16,29 +13,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    // <StyledEngineProvider injectFirst>
-    //   <ThemeProvider
-    //     theme={createTheme({
-    //       palette: {
-    //         primary: { main: "#0054a6" },
-    //         secondary: { main: "#ff0000" },
-    //       },
-    //     })}
-    //   >
-    <ApolloProvider client={client}>
-      <Head>
-        <link
-          rel="icon"
-          href="https://pimage.sport-thieme.de/icon32/springer"
-          type="image/png"
-        />
-      </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
-    //   </ThemeProvider>
-    // </StyledEngineProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <Head>
+            <link
+              rel="icon"
+              href="https://pimage.sport-thieme.de/icon32/springer"
+              type="image/png"
+            />
+          </Head>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 

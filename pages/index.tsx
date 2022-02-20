@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-// import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, CircularProgress } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import CreateCoach from "../components/CreateCoach";
 const Home: NextPage = () => {
   const { data, error, loading } = useQuery(ALL_COACHES);
 
-  if (loading) return <p>Loading...........</p>;
+  if (loading) return <CircularProgress />;
   if (error) return <p>Looks like there was a problem: {error.message}</p>;
 
   return (
