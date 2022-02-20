@@ -20,8 +20,9 @@ const CoachInfoCard = ({ coach }) => {
           item
           sx={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
+            flexGrow: 1,
           }}
         >
           <Avatar
@@ -38,28 +39,32 @@ const CoachInfoCard = ({ coach }) => {
           </Avatar>
           <Box sx={{ marginLeft: 2, marginRight: 2 }}>
             <Typography>{coach.name}</Typography>
-            <Typography variant="body2">Phone</Typography>
-            <Typography variant="body2">Email</Typography>
+            <Link href={`mailto:${coach.email}`} passHref>
+              <Typography variant="body2">Email</Typography>
+            </Link>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <Typography variant="body2">Specialties:</Typography>
+              {coach.specialties.map((skill) => {
+                return (
+                  <Chip
+                    key={skill.id}
+                    label={skill.name}
+                    component="a"
+                    variant="outlined"
+                    clickable
+                    sx={{ height: 20 }}
+                  />
+                );
+              })}
+            </Box>
           </Box>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            flexGrow: 1,
-          }}
-        >
-          <Typography>Specialties:</Typography>
-          {coach.specialties.map((skill) => {
-            return (
-              <Chip
-                key={skill.id}
-                label={skill.name}
-                component="a"
-                variant="outlined"
-                clickable
-              />
-            );
-          })}
         </Grid>
         <Grid
           item

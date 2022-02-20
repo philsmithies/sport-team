@@ -8,7 +8,9 @@ import CreateCoach from "../components/CreateCoach";
 import CoachInfoCard from "../components/CoachInfoCard";
 
 const Home: NextPage = () => {
-  const { data, error, loading } = useQuery(ALL_COACHES);
+  const { data, error, loading } = useQuery(ALL_COACHES, {
+    variables: { take: 50 },
+  });
 
   if (loading)
     return (
@@ -48,9 +50,7 @@ const Home: NextPage = () => {
         <title>Sports Thieme: The Coaches</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
-        <Typography variant="h4">
-          Displaying {data.coaches.length} Coaches
-        </Typography>
+        <Typography variant="h4">All Coaches</Typography>
         {data?.coaches.map((coach) => (
           <CoachInfoCard coach={coach} key={coach.id} />
         ))}
