@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-micro";
 
 export const ALL_COACHES = gql`
-  query Coaches($skip: Int) {
-    coaches(skip: $skip) {
+  query Coaches($take: Int) {
+    coaches(take: $take) {
       id
       email
       name

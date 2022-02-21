@@ -3,20 +3,40 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { REMOVE_SPECIALTY } from "../../graphql/removeSpecialty";
 import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
 import { SINGLE_COACH } from "../../graphql/singleCoach";
-import Router from "next/router";
-import { Typography, Container, Button, Box, Chip } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Button,
+  Box,
+  Chip,
+  CircularProgress,
+  Grid,
+} from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import Image from "next/image";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UpdateForm from "./UpdateForm";
 
-const ProfileDetails = ({ coach }) => {
+const ProfileDetails = ({ id }) => {
+  const {
+    data: profile,
+    error,
+    loading,
+  } = useQuery(SINGLE_COACH, {
+    variables: {
+      where: { id },
+    },
+  });
+
+  console.log("the coach is", profile?.coach);
+
   const [removeSpecialty] = useMutation(REMOVE_SPECIALTY);
+
   const handleRemove = (specialtyId) => {
     try {
       removeSpecialty({
         variables: {
-          where: { id: coach.id },
+          where: { id },
           data: {
             specialties: { disconnect: { id: specialtyId } },
           },
@@ -25,8 +45,39 @@ const ProfileDetails = ({ coach }) => {
     } catch (error) {
       console.log(error);
     }
-    Router.reload();
   };
+
+  if (loading)
+    return (
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <CircularProgress size={80} />
+      </Grid>
+    );
+
+  if (error)
+    return (
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <Typography variant="h1">
+          Looks like there was a problem: {error.message}
+        </Typography>
+      </Grid>
+    );
 
   return (
     <Container
@@ -70,29 +121,29 @@ const ProfileDetails = ({ coach }) => {
           className="profile-image"
         />
         <Typography variant="h5" sx={{ marginTop: 3, marginBottom: 2 }}>
-          Coach: {coach.name}
+          Coach: {profile.coach.name}
         </Typography>
         <Typography variant="body1">Phone:</Typography>{" "}
         <Typography variant="body2" sx={{ marginBottom: 2 }}>
-          {coach.phone}
+          {profile.coach.phone}
         </Typography>
-        {coach.website && (
+        {profile.coach.website && (
           <>
             <Typography variant="body1">Website:</Typography>
             <Typography variant="body2" sx={{ marginBottom: 2 }}>
-              {coach.website}
+              {profile.coach.website}
             </Typography>{" "}
           </>
         )}
         <Typography variant="body1">Email:</Typography>
         <Typography variant="body2" sx={{ marginBottom: 2 }}>
-          {coach.email}
+          {profile.coach.email}
         </Typography>{" "}
         <Typography variant="body1" sx={{ marginBottom: 1 }}>
           Specialties:
         </Typography>
         <Box>
-          {coach.specialties?.map((specialty) => {
+          {profile.coach.specialties?.map((specialty) => {
             return (
               <Chip
                 icon={<SportsFootballIcon />}
@@ -105,7 +156,7 @@ const ProfileDetails = ({ coach }) => {
             );
           })}
         </Box>
-        <UpdateForm coach={coach} />
+        <UpdateForm coach={profile.coach} />
       </Container>
     </Container>
   );

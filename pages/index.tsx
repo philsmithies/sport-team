@@ -11,7 +11,7 @@ import { CREATE_COACH } from "../graphql/createCoach";
 
 const Home = () => {
   const { data, error, loading } = useQuery(ALL_COACHES, {
-    variables: { first: 50 },
+    variables: { take: 50 },
   });
 
   const [user, setUser] = useState({});

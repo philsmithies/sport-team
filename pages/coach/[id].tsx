@@ -3,7 +3,7 @@ import ProfileComponent from "../../components/ProfilePage/ProfileDetails";
 import { useRouter } from "next/router";
 
 const Coach = ({ coach }) => {
-  return <ProfileComponent coach={coach} />;
+  return <ProfileComponent id={coach.id} />;
 };
 
 export default Coach;
