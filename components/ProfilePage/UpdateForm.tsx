@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_COACH } from "../../graphql/updateCoach";
+import { SINGLE_COACH } from "../../graphql/singleCoach";
 import Router from "next/router";
 import {
   Button,
@@ -44,9 +45,19 @@ const UpdateForm = ({ coach }) => {
   //   setUpdatedCoach({ ...coach, [event.target.name]: event.target.value });
   // };
 
-  const [updateCoach] = useMutation(UPDATE_COACH);
+  const [updateCoach] = useMutation(UPDATE_COACH, {
+    refetchQueries: [
+      {
+        query: SINGLE_COACH,
+        variables: {
+          where: { id: coach.id },
+        },
+      },
+    ],
+  });
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
       updateCoach({
         variables: {
