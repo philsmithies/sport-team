@@ -4,11 +4,11 @@ import { REMOVE_SPECIALTY } from "../../graphql/removeSpecialty";
 import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
 import { SINGLE_COACH } from "../../graphql/singleCoach";
 import Router from "next/router";
-import { Grid, Typography, Container, Button, Box, Chip } from "@mui/material";
+import { Typography, Container, Button, Box, Chip } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import Image from "next/image";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import UpdateIcon from "@mui/icons-material/Update";
+import UpdateForm from "./UpdateForm";
 
 const ProfileDetails = ({ coach }) => {
   const [removeSpecialty] = useMutation(REMOVE_SPECIALTY);
@@ -97,24 +97,12 @@ const ProfileDetails = ({ coach }) => {
                 label={specialty.name}
                 component="a"
                 variant="outlined"
-                sx={{ height: 32 }}
-                onDelete={(e) => handleRemove(specialty.id)}
+                sx={{ height: 32, marginRight: 0.3 }}
               />
             );
           })}
         </Box>
-        <Button
-          variant="contained"
-          size="large"
-          sx={{
-            maxWidth: 300,
-            marginTop: 4,
-            marginBottom: 4,
-          }}
-        >
-          <UpdateIcon sx={{ marginRight: 1 }} />
-          Update Coach Profile
-        </Button>
+        <UpdateForm coach={coach} />
       </Container>
     </Container>
   );

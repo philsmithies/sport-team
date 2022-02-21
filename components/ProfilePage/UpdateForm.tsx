@@ -3,6 +3,20 @@ import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_COACH } from "../../graphql/updateCoach";
 import Router from "next/router";
+import {
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+  Grid,
+  FormControl,
+  TextField,
+  Typography,
+} from "@mui/material";
+import UpdateIcon from "@mui/icons-material/Update";
 
 const UpdateForm = ({ coach }) => {
   const [id, setId] = useState(coach.id);
@@ -10,6 +24,16 @@ const UpdateForm = ({ coach }) => {
   const [email, setEmail] = useState(coach.email);
   const [website, setWebsite] = useState(coach.website);
   const [phone, setPhone] = useState(coach.phone);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   /***
    * !see if we can use the spread operator instead of separate states
@@ -21,7 +45,7 @@ const UpdateForm = ({ coach }) => {
 
   const [updateCoach] = useMutation(UPDATE_COACH);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     try {
       updateCoach({
         variables: {
@@ -41,51 +65,86 @@ const UpdateForm = ({ coach }) => {
   };
 
   return (
-    <div className="mt-10 flex flex-col items-center bg-red-700">
-      <h1 className="text-4xl">Update The Coach</h1>
-      <form
-        className="mt-4 flex w-44 flex-col space-y-3 bg-red-50 "
-        onSubmit={handleSubmit}
+    <>
+      <Button
+        variant="contained"
+        size="large"
+        sx={{
+          maxWidth: 300,
+          marginTop: 4,
+          marginBottom: 4,
+        }}
+        onClick={handleClickOpen}
       >
-        <label>
-          Name:
-          <input
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            name="name"
-            placeholder={name}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
-            name="email"
-            placeholder={email}
-          />
-        </label>
-        <label>
-          Website:
-          <input
-            onChange={(e) => setWebsite(e.target.value)}
-            type="text"
-            name="website"
-            placeholder={website}
-          />
-        </label>
-        <label>
-          Phone:
-          <input
-            onChange={(e) => setPhone(e.target.value)}
-            type="number"
-            name="phone"
-            placeholder={phone}
-          />
-        </label>
-        <input type="submit" value="Update Coach" className="border-2" />
-      </form>
-    </div>
+        <UpdateIcon sx={{ marginRight: 1 }} />
+        Update Coach Profile
+      </Button>
+      <Dialog open={open} onClose={handleClose} maxWidth="xs">
+        <DialogTitle>Update Coach Profile</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To update the chosen coach please enter one or more values that you
+            would like to change.
+          </DialogContentText>
+          <Grid
+            container
+            sx={{
+              marginTop: 2,
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FormControl>
+              <TextField
+                label="Name"
+                variant="outlined"
+                size="small"
+                margin="normal"
+                placeholder={name}
+                type="text"
+                fullWidth
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                size="small"
+                margin="normal"
+                placeholder={email}
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                label="Website"
+                variant="outlined"
+                size="small"
+                margin="normal"
+                placeholder={website}
+                type="text"
+                onChange={(e) => setWebsite(e.target.value)}
+              />
+              <TextField
+                label="Phone"
+                variant="outlined"
+                size="small"
+                margin="normal"
+                placeholder={phone}
+                type="number"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </FormControl>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>
+            <UpdateIcon sx={{ marginRight: 1 }} />
+            Update Coach
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

@@ -23,7 +23,14 @@ const NavBar = () => {
       >
         <Toolbar>
           <Box mr={10} sx={{ flexGrow: 1 }}>
-            <Image src={Logo} alt="Sport Thieme Logo" height={50} width={220} />
+            <Link href="/" passHref>
+              <Image
+                src={Logo}
+                alt="Sport Thieme Logo"
+                height={50}
+                width={220}
+              />
+            </Link>
           </Box>
           <ButtonGroup size="large" aria-label="large button group">
             <Link href="/" passHref>

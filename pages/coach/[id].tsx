@@ -8,7 +8,6 @@ const Coach = ({ coach }) => {
   return (
     <div className="container mx-auto h-screen">
       <ProfileComponent coach={coach} />
-      <UpdateForm coach={coach} />
       <AddSpecialties coach={coach} />
     </div>
   );
