@@ -4,6 +4,8 @@ import { UPDATE_SPECIALTIES } from "../../graphql/updateSpecialties";
 import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
 import Router from "next/router";
 import { useState, useEffect } from "react";
+import { Box, Chip, Container, Typography } from "@mui/material";
+import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
 const AddSpecialties = ({ coach }) => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
@@ -15,6 +17,8 @@ const AddSpecialties = ({ coach }) => {
   const [updateSpecialty] = useMutation(UPDATE_SPECIALTIES, {
     onCompleted: () => console.log("nice one"),
   });
+
+  console.log("the data is", data);
 
   const handleClick = (specialtyId) => {
     try {
@@ -50,20 +54,22 @@ const AddSpecialties = ({ coach }) => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center py-20">
-      <h1 className="text-4xl">Add Specialties</h1>
-      <div className="mt-4 flex">
-        {filteredSpecialties?.map((specialty) => (
-          <p
-            key={specialty.id}
-            className="w-min rounded border-2 border-red-700 bg-white py-1 px-2 hover:cursor-pointer hover:bg-slate-400"
-            onClick={(e) => handleClick(specialty.id)}
-          >
-            {specialty.name}
-          </p>
-        ))}
-      </div>
-    </div>
+    <Box sx={{ marginTop: 3 }}>
+      <Typography variant="h6" sx={{ marginBottom: 2 }}>
+        Add Specialties
+      </Typography>
+      {filteredSpecialties?.map((specialty) => (
+        <Chip
+          icon={<SportsFootballIcon />}
+          key={specialty.id}
+          label={specialty.name}
+          component="a"
+          variant="outlined"
+          sx={{ height: 32 }}
+          onClick={(e) => handleClick(specialty.id)}
+        />
+      ))}
+    </Box>
   );
 };
 

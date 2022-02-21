@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import CreateCoach from "../components/CreateCoach";
+import CreateCoachForm from "../components/CreateCoachForm";
 
 const Create: NextPage = () => {
   return (
@@ -9,7 +9,7 @@ const Create: NextPage = () => {
         <title>Sports Thieme: Create a Coach</title>
       </Head>
       <div>
-        <CreateCoach />
+        <CreateCoachForm />
       </div>
     </>
   );

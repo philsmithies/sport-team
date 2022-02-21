@@ -18,3 +18,9 @@ a {
 .profile-image {
   border-radius: 50%;
 }
+
+.nav-logo {
+  :hover {
+    cursor: pointer;
+  }
+}

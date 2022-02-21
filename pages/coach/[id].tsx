@@ -1,16 +1,9 @@
 import prisma from "../../lib/prisma";
-import Link from "next/link";
-import UpdateForm from "../../components/ProfilePage/UpdateForm";
 import ProfileComponent from "../../components/ProfilePage/ProfileDetails";
-import AddSpecialties from "../../components/ProfilePage/AddSpecialties";
+import { useRouter } from "next/router";
 
 const Coach = ({ coach }) => {
-  return (
-    <div className="container mx-auto h-screen">
-      <ProfileComponent coach={coach} />
-      <AddSpecialties coach={coach} />
-    </div>
-  );
+  return <ProfileComponent coach={coach} />;
 };
 
 export default Coach;

@@ -1,16 +1,39 @@
 import type { NextPage } from "next";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
 import { Typography, CircularProgress, Grid, Container } from "@mui/material";
 import { ALL_COACHES } from "../graphql/allCoaches";
-import CreateCoach from "../components/CreateCoach";
+import CreateCoach from "../components/CreateCoachForm";
 import CoachInfoCard from "../components/CoachInfoCard";
+import { useState } from "react";
+import { CREATE_COACH } from "../graphql/createCoach";
 
-const Home: NextPage = () => {
+const Home = () => {
   const { data, error, loading } = useQuery(ALL_COACHES, {
-    variables: { take: 50 },
+    variables: { first: 50 },
   });
+
+  const [user, setUser] = useState({});
+
+  const handleOnChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  const [createUser] = useMutation(CREATE_COACH, {
+    refetchQueries: [ALL_COACHES, "Coaches"],
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    createUser({
+      variables: {
+        data: {
+          ...user,
+        },
+      },
+    });
+  };
 
   if (loading)
     return (

@@ -17,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import UpdateIcon from "@mui/icons-material/Update";
+import AddSpecialties from "./AddSpecialties";
 
 const UpdateForm = ({ coach }) => {
   const [id, setId] = useState(coach.id);
@@ -61,7 +62,7 @@ const UpdateForm = ({ coach }) => {
     } catch (error) {
       console.log(error);
     }
-    Router.reload();
+    // Router.reload();
   };
 
   return (
@@ -91,8 +92,6 @@ const UpdateForm = ({ coach }) => {
             sx={{
               marginTop: 2,
               flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
             }}
           >
             <FormControl>
@@ -103,7 +102,6 @@ const UpdateForm = ({ coach }) => {
                 margin="normal"
                 placeholder={name}
                 type="text"
-                fullWidth
                 onChange={(e) => setName(e.target.value)}
               />
               <TextField
@@ -135,6 +133,7 @@ const UpdateForm = ({ coach }) => {
               />
             </FormControl>
           </Grid>
+          <AddSpecialties coach={coach} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

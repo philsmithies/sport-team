@@ -3,7 +3,6 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import GroupsIcon from "@mui/icons-material/Groups";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "./logo.png";
 
 /***
  * !Make The Image Dynamic
@@ -24,12 +23,15 @@ const NavBar = () => {
         <Toolbar>
           <Box mr={10} sx={{ flexGrow: 1 }}>
             <Link href="/" passHref>
-              <Image
-                src={Logo}
-                alt="Sport Thieme Logo"
-                height={50}
-                width={220}
-              />
+              <Box sx={{ cursor: "pointer" }}>
+                <Image
+                  src="/images/logo.png"
+                  alt="Sport Thieme Logo"
+                  height={50}
+                  width={220}
+                  className="nav-logo"
+                />
+              </Box>
             </Link>
           </Box>
           <ButtonGroup size="large" aria-label="large button group">

@@ -30,11 +30,13 @@ const ProfileDetails = ({ coach }) => {
 
   return (
     <Container
-      maxWidth="md"
+      maxWidth="sm"
       sx={{
         marginTop: 5,
         marginBottom: 20,
-        border: 2,
+        border: 0.5,
+        borderRadius: 5,
+        boxShadow: 3,
       }}
     >
       <Container
@@ -43,21 +45,22 @@ const ProfileDetails = ({ coach }) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          maxWidth: 640,
         }}
       >
-        <Button
-          variant="contained"
-          size="large"
-          sx={{
-            marginTop: 4,
-            marginBottom: 4,
-            alignSelf: "flex-start",
-          }}
-        >
-          <ArrowBackIcon sx={{ marginRight: 1 }} />
-          Back
-        </Button>
+        <Link href="/" passHref>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              marginTop: 4,
+              marginBottom: 4,
+              alignSelf: "flex-start",
+            }}
+          >
+            <ArrowBackIcon sx={{ marginRight: 1 }} />
+            Back
+          </Button>
+        </Link>
         <Image
           src="/images/profile-default.png"
           alt="me"
