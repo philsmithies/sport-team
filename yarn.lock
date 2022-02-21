@@ -2059,6 +2059,11 @@ apollo-server-types@^3.5.1:
     apollo-server-caching "^3.3.0"
     apollo-server-env "^4.2.1"
 
+apollo3-cache-persist@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/apollo3-cache-persist/-/apollo3-cache-persist-0.14.0.tgz#457519f548698fb1e70f99d81e59652fc289ab19"
+  integrity sha512-jT3wkB3IJGNyK1XTtS2WbaAyD/Z9Z4HuFEsU0kIpYceqdtT8gV1kNSX+4YMBt0XgS954zMKY6cs8Q4zt7NNPeQ==
+
 archiver-utils@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/archiver-utils/-/archiver-utils-2.1.0.tgz"

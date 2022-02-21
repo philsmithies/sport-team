@@ -3,15 +3,11 @@ import type { AppProps } from "next/app";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import theme from "../styles/theme";
+import { client } from "../lib/cache";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const client = new ApolloClient({
-    uri: "http://localhost:3000/api",
-    cache: new InMemoryCache(),
-  });
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>

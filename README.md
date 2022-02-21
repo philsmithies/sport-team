@@ -22,7 +22,7 @@ The first 5 todos are required, all the others are bonus tasks. Please don't cha
 ### Bonus tasks for style points 😎
 
 - [ ] Implement pagination or endless scrolling to the coach list
-- [ ] Implement sorting to the coach list
+- [x] Implement sorting to the coach list
 - [ ] Use Apollo reactive variables to create a local state to mark coaches as favourite
 
 ### Beyond bonus

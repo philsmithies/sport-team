@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import AddToFavouritesButton from "./AddToFavouritesButton";
 
 const CoachInfoCard = ({ coach }) => {
   const SelectIcon = ({ skill }) => {
@@ -90,6 +91,7 @@ const CoachInfoCard = ({ coach }) => {
               View Coach
             </Button>
           </Link>
+          <AddToFavouritesButton coach={coach} />
         </Grid>
       </Grid>
     </>
