@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_COACH } from "../../graphql/updateCoach";
-import { SINGLE_COACH } from "../../graphql/singleCoach";
+import { UPDATE_COACH } from "../../../graphql/updateCoach";
+import { SINGLE_COACH } from "../../../graphql/singleCoach";
 import {
   Button,
   Container,
@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import UpdateIcon from "@mui/icons-material/Update";
 import AddSpecialties from "./AddSpecialties";
+import RemoveSpecialties from "./RemoveSpecialties";
 
 const UpdateForm = ({ coach }) => {
   const [id, setId] = useState(coach.id);
@@ -57,6 +58,7 @@ const UpdateForm = ({ coach }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleClose();
     try {
       updateCoach({
         variables: {
@@ -114,6 +116,15 @@ const UpdateForm = ({ coach }) => {
                 onChange={(e) => setName(e.target.value)}
               />
               <TextField
+                label="Phone"
+                variant="outlined"
+                size="small"
+                margin="normal"
+                placeholder={phone}
+                type="text"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <TextField
                 label="Email"
                 variant="outlined"
                 size="small"
@@ -131,21 +142,13 @@ const UpdateForm = ({ coach }) => {
                 type="text"
                 onChange={(e) => setWebsite(e.target.value)}
               />
-              <TextField
-                label="Phone"
-                variant="outlined"
-                size="small"
-                margin="normal"
-                placeholder={phone}
-                type="number"
-                onChange={(e) => setPhone(e.target.value)}
-              />
             </FormControl>
           </Grid>
           <AddSpecialties coach={coach} />
+          <RemoveSpecialties coach={coach} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Close</Button>
           <Button onClick={handleSubmit}>
             <UpdateIcon sx={{ marginRight: 1 }} />
             Update Coach

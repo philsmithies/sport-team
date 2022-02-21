@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SPECIALTIES } from "../../graphql/updateSpecialties";
-import { SINGLE_COACH } from "../../graphql/singleCoach";
-import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
+import { UPDATE_SPECIALTIES } from "../../../graphql/updateSpecialties";
+import { SINGLE_COACH } from "../../../graphql/singleCoach";
+import { ALL_SPECIALTIES } from "../../../graphql/allSpecialties";
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
@@ -57,7 +57,7 @@ const AddSpecialties = ({ coach }) => {
 
   return (
     <Box sx={{ marginTop: 3 }}>
-      {filteredSpecialties.length > 0 && (
+      {filteredSpecialties?.length > 0 && (
         <Typography variant="h6" sx={{ marginBottom: 2 }}>
           Add Specialties
         </Typography>

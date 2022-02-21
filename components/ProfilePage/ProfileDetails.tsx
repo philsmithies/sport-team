@@ -28,9 +28,19 @@ const ProfileDetails = ({ id }) => {
     },
   });
 
-  console.log("the coach is", profile?.coach);
-
-  const [removeSpecialty] = useMutation(REMOVE_SPECIALTY);
+  const [removeSpecialty, { loading: removeLoading }] = useMutation(
+    REMOVE_SPECIALTY,
+    {
+      refetchQueries: [
+        {
+          query: SINGLE_COACH,
+          variables: {
+            where: { id },
+          },
+        },
+      ],
+    }
+  );
 
   const handleRemove = (specialtyId) => {
     try {
@@ -127,6 +137,10 @@ const ProfileDetails = ({ id }) => {
         <Typography variant="body2" sx={{ marginBottom: 2 }}>
           {profile.coach.phone}
         </Typography>
+        <Typography variant="body1">Email:</Typography>
+        <Typography variant="body2" sx={{ marginBottom: 2 }}>
+          {profile.coach.email}
+        </Typography>{" "}
         {profile.coach.website && (
           <>
             <Typography variant="body1">Website:</Typography>
@@ -135,13 +149,11 @@ const ProfileDetails = ({ id }) => {
             </Typography>{" "}
           </>
         )}
-        <Typography variant="body1">Email:</Typography>
-        <Typography variant="body2" sx={{ marginBottom: 2 }}>
-          {profile.coach.email}
-        </Typography>{" "}
-        <Typography variant="body1" sx={{ marginBottom: 1 }}>
-          Specialties:
-        </Typography>
+        {profile.coach.specialties?.length > 0 && (
+          <Typography variant="body1" sx={{ marginBottom: 1 }}>
+            Specialties:
+          </Typography>
+        )}
         <Box>
           {profile.coach.specialties?.map((specialty) => {
             return (
