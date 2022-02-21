@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_COACH } from "../../graphql/updateCoach";
 import { SINGLE_COACH } from "../../graphql/singleCoach";
-import Router from "next/router";
 import {
   Button,
   Container,
@@ -73,7 +72,6 @@ const UpdateForm = ({ coach }) => {
     } catch (error) {
       console.log(error);
     }
-    // Router.reload();
   };
 
   return (

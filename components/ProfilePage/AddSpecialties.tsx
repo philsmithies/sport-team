@@ -1,24 +1,29 @@
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SPECIALTIES } from "../../graphql/updateSpecialties";
+import { SINGLE_COACH } from "../../graphql/singleCoach";
 import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
-import Router from "next/router";
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
 const AddSpecialties = ({ coach }) => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
-  const { data, error, loading } = useQuery(ALL_SPECIALTIES);
+  const { data, error } = useQuery(ALL_SPECIALTIES);
   const id = coach.id;
   /**
    * TODO add error handling for mutation
    */
   const [updateSpecialty] = useMutation(UPDATE_SPECIALTIES, {
-    onCompleted: () => console.log("nice one"),
+    refetchQueries: [
+      {
+        query: SINGLE_COACH,
+        variables: {
+          where: { id },
+        },
+      },
+    ],
   });
-
-  console.log("the data is", data);
 
   const handleClick = (specialtyId) => {
     try {
@@ -33,7 +38,6 @@ const AddSpecialties = ({ coach }) => {
     } catch (error) {
       console.log(error);
     }
-    Router.reload();
   };
 
   useEffect(() => {
@@ -47,17 +51,17 @@ const AddSpecialties = ({ coach }) => {
     );
   }, [data, coach]);
 
-  console.log(filteredSpecialties);
-
   if (error) {
     return <h1> {error} </h1>;
   }
 
   return (
     <Box sx={{ marginTop: 3 }}>
-      <Typography variant="h6" sx={{ marginBottom: 2 }}>
-        Add Specialties
-      </Typography>
+      {filteredSpecialties.length > 0 && (
+        <Typography variant="h6" sx={{ marginBottom: 2 }}>
+          Add Specialties
+        </Typography>
+      )}
       {filteredSpecialties?.map((specialty) => (
         <Chip
           icon={<SportsFootballIcon />}
