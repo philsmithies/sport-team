@@ -99,27 +99,15 @@ const Home: NextPage = () => {
         <title>Sports Thieme: The Coaches</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            refetch({ orderBy: [{ id: "asc" }] });
-          }}
-        >
-          Order A-Z
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => refetch({ orderBy: [{ id: "desc" }] })}
-        >
-          Order Z-A
-        </Button>
-
+        <Typography variant="h4" sx={{ marginBottom: 4 }}>
+          All Coaches
+        </Typography>
         <FilterSportsGroup
+          refetch={refetch}
           filterSports={filterSports}
           specialties={allSpecialties?.specialties}
         />
 
-        <Typography variant="h4">All Coaches</Typography>
         {filteredData &&
           filteredData?.coaches.map((coach) => (
             <CoachInfoCard coach={coach} key={coach.id} />

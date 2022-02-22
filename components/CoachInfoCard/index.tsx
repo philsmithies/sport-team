@@ -1,27 +1,48 @@
 // import CoachProps from "./types";
 import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import AddToFavouritesButton from "./AddtoFavouritesButton";
 
-const CoachInfoCard = ({ isHearted = false, coach }) => {
-  const SelectIcon = ({ skill }) => {
-    return (
-      <Chip
-        icon={
-          skill.name == "Rugby" ? <SportsFootballIcon /> : <AccountCircleIcon />
-        }
-        key={skill.id}
-        label={skill.name}
-        component="a"
-        variant="outlined"
-        clickable
-        sx={{ height: 32 }}
-      />
-    );
-  };
+/**
+ * !export on the mui library won't let me chain the imports duplicated logic on renderSwitch
+ */
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SportsFootball from "@mui/icons-material/SportsFootball";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import GolfCourseIcon from "@mui/icons-material/GolfCourse";
+import SportsTennisIcon from "@mui/icons-material/SportsTennis";
+import SportsIcon from "@mui/icons-material/Sports";
+import PoolIcon from "@mui/icons-material/Pool";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+
+function renderSwitch(param) {
+  switch (param) {
+    case "Football":
+      return <SportsSoccerIcon />;
+    case "Basketball":
+      return <SportsBasketballIcon />;
+    case "Hockey":
+      return <SportsHockeyIcon />;
+    case "Soccer":
+      return <SportsSoccerIcon />;
+    case "Golf":
+      return <GolfCourseIcon />;
+    case "Tennis":
+      return <SportsTennisIcon />;
+    case "Swimming":
+      return <PoolIcon />;
+    case "Rugby":
+      return <SportsFootball />;
+    default:
+      return <SportsIcon />;
+  }
+}
+
+const CoachInfoCard = ({ isHearted = false, coach }) => {
   return (
     <>
       <Grid
@@ -50,7 +71,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
               bgcolor: "secondary.main",
               width: 50,
               height: 50,
-              marginLeft: 5,
+              marginLeft: 3,
             }}
             alt="profile photo placeholder"
             variant="circular"
@@ -60,9 +81,10 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
           <Box sx={{ marginLeft: 2, marginRight: 2 }}>
             <Typography>{coach.name}</Typography>
             <Link href={`mailto:${coach.email}`} passHref>
-              <Typography variant="body2" sx={{ color: "primary.main" }}>
-                Email
-              </Typography>
+              <EmailIcon color="secondary" />
+            </Link>
+            <Link href={`tel:${coach.phone}`} passHref>
+              <PhoneIcon color="primary" className="link-hover" />
             </Link>
             <Box
               sx={{
@@ -72,9 +94,21 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
                 flexWrap: "wrap",
               }}
             >
-              <Typography variant="body2">Specialties:</Typography>
+              <Typography variant="body2" sx={{ marginRight: 1 }}>
+                Specialties:
+              </Typography>
               {coach.specialties.map((skill) => {
-                return <SelectIcon key={skill.id} skill={skill} />;
+                return (
+                  <Chip
+                    icon={renderSwitch(skill.name)}
+                    key={skill.id}
+                    label={skill.name}
+                    component="a"
+                    variant="outlined"
+                    clickable
+                    sx={{ height: 32 }}
+                  />
+                );
               })}
             </Box>
           </Box>

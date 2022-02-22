@@ -15,11 +15,19 @@ a {
   box-sizing: border-box;
 }
 
+// next js overrides
+
 .profile-image {
   border-radius: 50%;
 }
 
 .nav-logo {
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.link-hover {
   :hover {
     cursor: pointer;
   }

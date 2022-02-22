@@ -38,7 +38,7 @@ const FilterSports = ({ filterSports, sportName }) => {
   }
 
   return (
-    <div>
+    <>
       <Chip
         icon={renderSwitch(sportName)}
         label={sportName}
@@ -56,7 +56,7 @@ const FilterSports = ({ filterSports, sportName }) => {
           })
         }
       />
-    </div>
+    </>
   );
 };
 
