@@ -15,11 +15,16 @@ import {
 } from "../graphql/coach";
 import CoachInfoCard from "../components/CoachInfoCard";
 import { useState } from "react";
+import FilterSports from "../components/FilterSportsGroup/FilterSports";
+import FilterSportsGroup from "../components/FilterSportsGroup";
+import { ALL_SPECIALTIES } from "../graphql/specialty";
 
 const Home: NextPage = () => {
   const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
     variables: { take: 50, orderBy: [{ id: "asc" }] },
   });
+
+  const { data: allSpecialties } = useQuery(ALL_SPECIALTIES);
 
   const [
     filterSports,
@@ -108,48 +113,12 @@ const Home: NextPage = () => {
         >
           Order Z-A
         </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            filterSports({
-              variables: {
-                where: {
-                  specialties: { some: { name: { equals: "Basketball" } } },
-                },
-              },
-            })
-          }
-        >
-          Filter Basketball
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            filterSports({
-              variables: {
-                where: {
-                  specialties: { some: { name: { equals: "Football" } } },
-                },
-              },
-            })
-          }
-        >
-          Filter Football
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            filterSports({
-              variables: {
-                where: {
-                  specialties: { some: { name: { equals: "Hockey" } } },
-                },
-              },
-            })
-          }
-        >
-          Filter Hockey
-        </Button>
+
+        <FilterSportsGroup
+          filterSports={filterSports}
+          specialties={allSpecialties?.specialties}
+        />
+
         <Typography variant="h4">All Coaches</Typography>
         {filteredData &&
           filteredData?.coaches.map((coach) => (
