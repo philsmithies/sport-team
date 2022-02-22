@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH, UPDATE_COACH } from "../../../graphql/coach";
 import {
@@ -16,8 +17,9 @@ import {
 import UpdateIcon from "@mui/icons-material/Update";
 import AddSpecialties from "./AddSpecialties";
 import RemoveSpecialties from "./RemoveSpecialties";
+import { UpdateCoach } from "./types";
 
-const UpdateForm = ({ coach }) => {
+const UpdateForm = ({ coach }: UpdateCoach) => {
   const [id, setId] = useState(coach.id);
   const [name, setName] = useState(coach.name);
   const [email, setEmail] = useState(coach.email);
@@ -53,7 +55,7 @@ const UpdateForm = ({ coach }) => {
     ],
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     handleClose();
     try {
@@ -146,7 +148,7 @@ const UpdateForm = ({ coach }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleSubmit}>
+          <Button onClick={(e) => handleSubmit}>
             <UpdateIcon sx={{ marginRight: 1 }} />
             Update Coach
           </Button>

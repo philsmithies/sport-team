@@ -83,11 +83,11 @@ const Home: NextPage = () => {
 
         {filteredData &&
           filteredData?.coaches.map((coach: any) => (
-            <CoachInfoCard coach={coach} key={coach.id} />
+            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
           ))}
         {!filteredData &&
           data?.coaches.map((coach: any) => (
-            <CoachInfoCard coach={coach} key={coach.id} />
+            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
           ))}
       </Container>
     </>

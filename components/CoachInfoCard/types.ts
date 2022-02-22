@@ -1,20 +1,18 @@
-interface CoachInfo {
+export interface CoachInfo {
   isHearted: boolean;
   coach: {
     id: number;
-    email: string;
-    name: true;
-    phone: string;
-    website: true;
-    street: string;
-    streetNumber: string;
-    zip: string;
-    city: string;
+    email: string | null;
+    name: string;
+    phone: string | null;
+    website: string | null;
+    street: string | null;
+    streetNumber: string | null;
+    zip: string | null;
+    city: string | null;
     specialties: {
       id: string;
       name: string;
     }[];
   };
 }
-
-export default CoachInfo;

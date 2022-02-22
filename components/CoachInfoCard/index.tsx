@@ -1,5 +1,4 @@
-import CoachInfo from "./types";
-import { Specialty } from "@prisma/client";
+import { CoachInfo } from "./types";
 import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AddToFavouritesButton from "./AddtoFavouritesButton";
@@ -43,7 +42,7 @@ function renderSwitch(param: String) {
   }
 }
 
-const CoachInfoCard = ({ isHearted = false, coach }: CoachInfo) => {
+const CoachInfoCard = ({ isHearted, coach }: CoachInfo) => {
   return (
     <>
       <Grid
@@ -97,7 +96,7 @@ const CoachInfoCard = ({ isHearted = false, coach }: CoachInfo) => {
               <Typography variant="body2" sx={{ marginRight: 1 }}>
                 Specialties:
               </Typography>
-              {coach.specialties.map((skill: any) => {
+              {coach.specialties.map((skill) => {
                 return (
                   <Chip
                     icon={renderSwitch(skill.name)}

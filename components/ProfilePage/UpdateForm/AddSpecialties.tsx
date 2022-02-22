@@ -10,9 +10,10 @@ import {
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import { Coach } from "@prisma/client";
+import { UpdateCoach } from "./types";
+import { Specialty } from "@prisma/client";
 
-const AddSpecialties = ({ coach }) => {
+const AddSpecialties = ({ coach }: UpdateCoach) => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
   const { data, error } = useQuery(ALL_SPECIALTIES);
   const id = coach.id;
@@ -30,7 +31,7 @@ const AddSpecialties = ({ coach }) => {
     ],
   });
 
-  const handleClick = (specialtyId) => {
+  const handleClick = (specialtyId: number) => {
     try {
       updateSpecialty({
         variables: {
@@ -67,7 +68,7 @@ const AddSpecialties = ({ coach }) => {
           Add Specialties
         </Typography>
       )}
-      {filteredSpecialties?.map((specialty) => (
+      {filteredSpecialties?.map((specialty: Specialty) => (
         <Chip
           icon={<SportsFootballIcon />}
           key={specialty.id}
@@ -75,7 +76,7 @@ const AddSpecialties = ({ coach }) => {
           component="a"
           variant="outlined"
           sx={{ height: 32 }}
-          onClick={(e) => handleClick(specialty.id)}
+          onClick={() => handleClick(specialty.id)}
         />
       ))}
     </Box>
