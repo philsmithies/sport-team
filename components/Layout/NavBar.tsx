@@ -1,7 +1,15 @@
-import { AppBar, Box, Toolbar, Button, ButtonGroup } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Button,
+  ButtonGroup,
+  Dialog,
+  DialogTitle,
+} from "@mui/material";
+import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import GroupsIcon from "@mui/icons-material/Groups";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +19,15 @@ import Image from "next/image";
  */
 
 const NavBar = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -57,17 +74,24 @@ const NavBar = () => {
                 Favourites
               </Button>
             </Link>
-            <Link href="/create" passHref>
+            <Link href="" passHref>
               <Button
                 sx={{
                   flexDirection: "column",
                 }}
+                onClick={handleClickOpen}
               >
-                <PersonAddAlt1Icon />
-                Create a new Coach
+                <HelpOutlineIcon />
+                Help
               </Button>
             </Link>
           </ButtonGroup>
+          <Dialog onClose={handleClose} open={open}>
+            <DialogTitle>
+              Thanks for Viewing. A Project by Phil Smithies.
+              www.github.com/philsmithies
+            </DialogTitle>
+          </Dialog>
         </Toolbar>
       </AppBar>
     </Box>

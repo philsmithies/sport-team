@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import Head from "next/head";
 import {
   Typography,
@@ -17,22 +17,23 @@ import CoachInfoCard from "../components/CoachInfoCard";
 import { useState } from "react";
 
 const Home: NextPage = () => {
-  const [filteredData, setFilteredData] = useState();
-
   const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
     variables: { take: 50, orderBy: [{ id: "asc" }] },
   });
 
-  // const FilterData = () => {
-  //   console.log("clicked");
-  //   useQuery(FILTER_SPECIALTIES, {
-  //     variables: {
-  //       where: { specialties: { some: { name: { equals: "Tennis" } } } },
-  //     },
-  //   });
-  //   // setFilteredData(data);
-  //   console.log("the filtered coaches are ", data);
-  // };
+  const [
+    filterSports,
+    {
+      data: filteredData,
+      refetch: refetchFilteredData,
+      loading: filteredLoading,
+      error: filteredError,
+    },
+  ] = useLazyQuery(FILTER_SPECIALTIES, {
+    variables: {
+      where: { specialties: { some: { name: { equals: "Tennis" } } } },
+    },
+  });
 
   const [user, setUser] = useState({});
 
@@ -55,7 +56,7 @@ const Home: NextPage = () => {
     });
   };
 
-  if (loading)
+  if (loading || filteredLoading)
     return (
       <Grid
         container
@@ -70,7 +71,7 @@ const Home: NextPage = () => {
       </Grid>
     );
 
-  if (error)
+  if (error || filteredError)
     return (
       <Grid
         container
@@ -95,7 +96,9 @@ const Home: NextPage = () => {
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
         <Button
           variant="contained"
-          onClick={() => refetch({ orderBy: [{ id: "asc" }] })}
+          onClick={() => {
+            refetch({ orderBy: [{ id: "asc" }] });
+          }}
         >
           Order A-Z
         </Button>
@@ -105,14 +108,53 @@ const Home: NextPage = () => {
         >
           Order Z-A
         </Button>
-        <Button variant="contained" onClick={() => FilterData()}>
-          Filter Tennis
+        <Button
+          variant="contained"
+          onClick={() =>
+            filterSports({
+              variables: {
+                where: {
+                  specialties: { some: { name: { equals: "Basketball" } } },
+                },
+              },
+            })
+          }
+        >
+          Filter Basketball
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() =>
+            filterSports({
+              variables: {
+                where: {
+                  specialties: { some: { name: { equals: "Football" } } },
+                },
+              },
+            })
+          }
+        >
+          Filter Football
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() =>
+            filterSports({
+              variables: {
+                where: {
+                  specialties: { some: { name: { equals: "Hockey" } } },
+                },
+              },
+            })
+          }
+        >
+          Filter Hockey
         </Button>
         <Typography variant="h4">All Coaches</Typography>
-        {/* {filteredData &&
+        {filteredData &&
           filteredData?.coaches.map((coach) => (
             <CoachInfoCard coach={coach} key={coach.id} />
-          ))} */}
+          ))}
         {!filteredData &&
           data?.coaches.map((coach) => (
             <CoachInfoCard coach={coach} key={coach.id} />
