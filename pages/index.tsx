@@ -8,14 +8,32 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import { ALL_COACHES, CREATE_COACH } from "../graphql/coach";
+import {
+  ALL_COACHES,
+  CREATE_COACH,
+  FILTER_SPECIALTIES,
+} from "../graphql/coach";
 import CoachInfoCard from "../components/CoachInfoCard";
 import { useState } from "react";
 
 const Home: NextPage = () => {
+  const [filteredData, setFilteredData] = useState();
+
   const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
-    variables: { take: 50, orderBy: [{ name: "asc" }] },
+    variables: { take: 50, orderBy: [{ id: "asc" }] },
   });
+
+  // const FilterData = () => {
+  //   console.log("clicked");
+  //   useQuery(FILTER_SPECIALTIES, {
+  //     variables: {
+  //       where: { specialties: { some: { name: { equals: "Tennis" } } } },
+  //     },
+  //   });
+  //   // setFilteredData(data);
+  //   console.log("the filtered coaches are ", data);
+  // };
+
   const [user, setUser] = useState({});
 
   const handleOnChange = (event) => {
@@ -77,20 +95,28 @@ const Home: NextPage = () => {
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
         <Button
           variant="contained"
-          onClick={() => refetch({ orderBy: [{ name: "asc" }] })}
+          onClick={() => refetch({ orderBy: [{ id: "asc" }] })}
         >
           Order A-Z
         </Button>
         <Button
           variant="contained"
-          onClick={() => refetch({ orderBy: [{ name: "desc" }] })}
+          onClick={() => refetch({ orderBy: [{ id: "desc" }] })}
         >
           Order Z-A
         </Button>
+        <Button variant="contained" onClick={() => FilterData()}>
+          Filter Tennis
+        </Button>
         <Typography variant="h4">All Coaches</Typography>
-        {data?.coaches.map((coach) => (
-          <CoachInfoCard coach={coach} key={coach.id} />
-        ))}
+        {/* {filteredData &&
+          filteredData?.coaches.map((coach) => (
+            <CoachInfoCard coach={coach} key={coach.id} />
+          ))} */}
+        {!filteredData &&
+          data?.coaches.map((coach) => (
+            <CoachInfoCard coach={coach} key={coach.id} />
+          ))}
       </Container>
     </>
   );

@@ -32,7 +32,7 @@ export const CREATE_COACH = gql`
 `;
 
 export const SINGLE_COACH = gql`
-  query Query($where: CoachWhereUniqueInput!) {
+  query Coaches($where: CoachWhereUniqueInput!) {
     coach(where: $where) {
       id
       email
@@ -60,6 +60,21 @@ export const UPDATE_COACH = gql`
       specialties {
         name
         id
+      }
+    }
+  }
+`;
+
+export const FILTER_SPECIALTIES = gql`
+  query Coaches($where: CoachWhereInput) {
+    coaches(where: $where) {
+      id
+      email
+      name
+      phone
+      specialties {
+        id
+        name
       }
     }
   }
