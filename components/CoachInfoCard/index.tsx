@@ -5,7 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import AddToFavouritesButton from "../AddToFavouritesButton";
 
-const CoachInfoCard = ({ coach }) => {
+const CoachInfoCard = ({ isHearted = false, coach }) => {
   const SelectIcon = ({ skill }) => {
     return (
       <Chip
@@ -92,7 +92,7 @@ const CoachInfoCard = ({ coach }) => {
               View Coach
             </Button>
           </Link>
-          <AddToFavouritesButton coach={coach} />
+          <AddToFavouritesButton coach={coach} isHearted={isHearted} />
         </Grid>
       </Grid>
     </>

@@ -1,4 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
+import Link from "next/link";
+import { Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { favouritedCoachesVar } from "../../lib/cache";
 import { Typography, Container } from "@mui/material";
 import CoachInfoCard from "../CoachInfoCard";
@@ -15,13 +18,27 @@ const FavouritedCoaches = () => {
       }}
     >
       {favouritedItems.length === 0 ? (
-        <Typography variant="body2" sx={{ marginTop: 2 }}>
-          No favourited Coaches
-        </Typography>
+        <>
+          <Typography variant="h6" sx={{ marginY: 2 }}>
+            No favourited coaches currently. Would you like to add one?
+          </Typography>
+          <Link href="/" passHref>
+            <Button
+              variant="contained"
+              size="large"
+              sx={{
+                alignSelf: "flex-start",
+              }}
+            >
+              <ArrowBackIcon sx={{ marginRight: 1 }} />
+              Back
+            </Button>
+          </Link>
+        </>
       ) : (
         <>
           {favouritedItems.map((coach) => (
-            <CoachInfoCard coach={coach} key={coach.id} />
+            <CoachInfoCard coach={coach} key={coach.id} isHearted={true} />
           ))}
         </>
       )}
