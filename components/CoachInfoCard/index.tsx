@@ -43,7 +43,7 @@ function renderSwitch(param: String) {
   }
 }
 
-const CoachInfoCard = ({ isHearted = false, coach }) => {
+const CoachInfoCard = ({ isHearted = false, coach }: CoachInfo) => {
   return (
     <>
       <Grid
@@ -97,7 +97,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
               <Typography variant="body2" sx={{ marginRight: 1 }}>
                 Specialties:
               </Typography>
-              {coach.specialties.map((skill: Specialty) => {
+              {coach.specialties.map((skill: any) => {
                 return (
                   <Chip
                     icon={renderSwitch(skill.name)}
