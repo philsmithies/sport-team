@@ -14,12 +14,8 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import Link from "next/link";
 import Image from "next/image";
 
-/***
- * !Make The Image Dynamic
- */
-
-const NavBar = () => {
-  const [open, setOpen] = useState(false);
+const NavBar = (): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,6 +24,7 @@ const NavBar = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -40,9 +37,9 @@ const NavBar = () => {
         }}
       >
         <Toolbar>
-          <Box mr={10} sx={{ flexGrow: 1 }}>
+          <Box mr={10} sx={{ flexGrow: { xs: "none", sm: 1 } }}>
             <Link href="/" passHref>
-              <Box sx={{ cursor: "pointer" }}>
+              <Box sx={{ display: { xs: "none", sm: "block" } }}>
                 <Image
                   src="/images/logo.png"
                   alt="Sport Thieme Logo"
@@ -86,10 +83,13 @@ const NavBar = () => {
               </Button>
             </Link>
           </ButtonGroup>
-          <Dialog onClose={handleClose} open={open}>
+          <Dialog onClose={handleClose} open={open} sx={{ borderRadius: 10 }}>
             <DialogTitle>
-              Thanks for Viewing. A Project by Phil Smithies.
-              www.github.com/philsmithies
+              A Project by Phil Smithies.
+              <br />
+              <Link href="https://www.github.com/philsmithies" passHref>
+                https//www.github.com/philsmithies
+              </Link>
             </DialogTitle>
           </Dialog>
         </Toolbar>

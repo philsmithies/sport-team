@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { favouritedCoachesVar } from "../../../lib/cache";
 import { Fab } from "@mui/material";
+import CoachInfoProps from "../types";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useState } from "react";
 
 const AddToFavouritesButton = ({ isHearted = false, coach }) => {
   const [hearted, setHearted] = useState(isHearted);
@@ -27,10 +29,10 @@ const AddToFavouritesButton = ({ isHearted = false, coach }) => {
           onClick={() => {
             setHearted(false);
             const allCoaches = favouritedCoachesVar();
-            const filteredTodos = allCoaches.filter(
-              (todo) => todo.id !== coach.id
+            const filteredCoaches = allCoaches.filter(
+              (filteredCoach) => filteredCoach["id"] !== coach.id
             );
-            favouritedCoachesVar(filteredTodos);
+            favouritedCoachesVar(filteredCoaches);
           }}
         >
           <FavoriteIcon color="secondary" />

@@ -1,4 +1,5 @@
-// import CoachProps from "./types";
+import CoachInfo from "./types";
+import { Specialty } from "@prisma/client";
 import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AddToFavouritesButton from "./AddtoFavouritesButton";
@@ -19,7 +20,7 @@ import PoolIcon from "@mui/icons-material/Pool";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 
-function renderSwitch(param) {
+function renderSwitch(param: String) {
   switch (param) {
     case "Football":
       return <SportsSoccerIcon />;
@@ -47,7 +48,6 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
     <>
       <Grid
         container
-        spacing={1}
         sx={{
           border: 1,
           borderRadius: 5,
@@ -88,7 +88,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
             </Link>
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", sm: "flex" },
                 justifyContent: "center",
                 alignItems: "center",
                 flexWrap: "wrap",
@@ -97,7 +97,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
               <Typography variant="body2" sx={{ marginRight: 1 }}>
                 Specialties:
               </Typography>
-              {coach.specialties.map((skill) => {
+              {coach.specialties.map((skill: Specialty) => {
                 return (
                   <Chip
                     icon={renderSwitch(skill.name)}

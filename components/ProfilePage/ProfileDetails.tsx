@@ -16,8 +16,10 @@ import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import Image from "next/image";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UpdateForm from "./UpdateForm";
+import { Coach } from "@prisma/client";
 
-const ProfileDetails = ({ id }) => {
+const ProfileDetails = ({ coach }) => {
+  let id = coach.id;
   const {
     data: profile,
     error,

@@ -4,7 +4,12 @@ import { Box, Button, Container, Typography } from "@mui/material";
 const FilterSportsGroup = ({ filterSports, refetch, specialties }) => {
   return (
     <Container
-      sx={{ border: 0.5, borderRadius: 5, boxShadow: 2, marginBottom: 5 }}
+      sx={{
+        border: 0.5,
+        borderRadius: 5,
+        boxShadow: 2,
+        marginBottom: 5,
+      }}
     >
       <Typography variant="h6" sx={{ marginTop: 2 }}>
         Filters

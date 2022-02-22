@@ -37,7 +37,7 @@ const FavouritedCoaches = () => {
         </>
       ) : (
         <>
-          {favouritedItems.map((coach) => (
+          {favouritedItems.map((coach: any) => (
             <CoachInfoCard coach={coach} key={coach.id} isHearted={true} />
           ))}
         </>

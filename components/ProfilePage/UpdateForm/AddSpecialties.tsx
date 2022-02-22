@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { Coach } from "@prisma/client";
 
 const AddSpecialties = ({ coach }) => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
