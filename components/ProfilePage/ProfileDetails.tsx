@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { REMOVE_SPECIALTY } from "../../graphql/removeSpecialty";
-import { ALL_SPECIALTIES } from "../../graphql/allSpecialties";
-import { SINGLE_COACH } from "../../graphql/singleCoach";
+import { SINGLE_COACH } from "../../graphql/coach";
+import { ALL_SPECIALTIES, REMOVE_SPECIALTY } from "../../graphql/specialty";
 import {
   Typography,
   Container,

@@ -1,11 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_COACH } from "../../../graphql/updateCoach";
-import { SINGLE_COACH } from "../../../graphql/singleCoach";
+import { SINGLE_COACH, UPDATE_COACH } from "../../../graphql/coach";
 import {
   Button,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,

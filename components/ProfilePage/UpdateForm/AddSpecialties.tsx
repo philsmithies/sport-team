@@ -1,8 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SPECIALTIES } from "../../../graphql/updateSpecialties";
-import { SINGLE_COACH } from "../../../graphql/singleCoach";
-import { ALL_SPECIALTIES } from "../../../graphql/allSpecialties";
+import { SINGLE_COACH } from "../../../graphql/coach";
+import {
+  ALL_SPECIALTIES,
+  REMOVE_SPECIALTY,
+  UPDATE_SPECIALTIES,
+} from "../../../graphql/specialty";
+
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";

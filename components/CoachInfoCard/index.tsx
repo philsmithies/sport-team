@@ -1,18 +1,9 @@
+// import CoachProps from "./types";
 import Link from "next/link";
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  Avatar,
-  Chip,
-  Fab,
-} from "@mui/material";
+import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import AddToFavouritesButton from "./AddToFavouritesButton";
+import AddToFavouritesButton from "../AddToFavouritesButton";
 
 const CoachInfoCard = ({ coach }) => {
   const SelectIcon = ({ skill }) => {

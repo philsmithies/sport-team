@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_COACH } from "../graphql/createCoach";
-import { ALL_COACHES } from "../graphql/allCoaches";
+import { ALL_COACHES, CREATE_COACH } from "../../graphql/coach";
 import Router from "next/router";
 
 const CreateCoach = () => {

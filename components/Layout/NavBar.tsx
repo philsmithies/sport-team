@@ -1,4 +1,6 @@
 import { AppBar, Box, Toolbar, Button, ButtonGroup } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import GroupsIcon from "@mui/icons-material/Groups";
 import Link from "next/link";
@@ -43,6 +45,16 @@ const NavBar = () => {
               >
                 <GroupsIcon />
                 All Coaches
+              </Button>
+            </Link>
+            <Link href="/favourites" passHref>
+              <Button
+                sx={{
+                  flexDirection: "column",
+                }}
+              >
+                <FavoriteIcon />
+                Favourites
               </Button>
             </Link>
             <Link href="/create" passHref>

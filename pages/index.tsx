@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
-import { useQuery, useMutation, gql, useReactiveVar } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import Head from "next/head";
-import Link from "next/link";
 import {
   Typography,
   CircularProgress,
@@ -9,22 +8,9 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import { ALL_COACHES } from "../graphql/allCoaches";
-import CreateCoach from "../components/CreateCoachForm";
+import { ALL_COACHES, CREATE_COACH } from "../graphql/coach";
 import CoachInfoCard from "../components/CoachInfoCard";
 import { useState } from "react";
-import { CREATE_COACH } from "../graphql/createCoach";
-import AddToFavouritesButton from "../components/AddToFavouritesButton";
-import FavouritedCoaches from "../components/FavouritedCoaches";
-
-// type LaunchesQuery = {
-//   launches: {
-//     id: string;
-//     mission_name: string;
-//     details: string;
-//     launch_date_utc: string;
-//   }[];
-// };
 
 const Home: NextPage = () => {
   const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
@@ -89,7 +75,6 @@ const Home: NextPage = () => {
         <title>Sports Thieme: The Coaches</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
-        <FavouritedCoaches />
         <Button
           variant="contained"
           onClick={() => refetch({ orderBy: [{ name: "asc" }] })}
