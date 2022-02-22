@@ -1,4 +1,4 @@
-import { favouritedCoachesVar } from "../../lib/cache";
+import { favouritedCoachesVar } from "../../../lib/cache";
 import { Fab } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -31,7 +31,6 @@ const AddToFavouritesButton = ({ isHearted = false, coach }) => {
               (todo) => todo.id !== coach.id
             );
             favouritedCoachesVar(filteredTodos);
-            console.log("the coach has been removed ", favouritedCoachesVar());
           }}
         >
           <FavoriteIcon color="secondary" />

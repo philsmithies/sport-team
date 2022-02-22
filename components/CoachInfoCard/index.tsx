@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import AddToFavouritesButton from "../AddToFavouritesButton";
+import AddToFavouritesButton from "./AddtoFavouritesButton";
 
 const CoachInfoCard = ({ isHearted = false, coach }) => {
   const SelectIcon = ({ skill }) => {
@@ -33,6 +33,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
           minHeight: 120,
           marginTop: 5,
           marginBottom: 5,
+          paddingRight: 3,
         }}
       >
         <Grid
@@ -88,7 +89,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
           }}
         >
           <Link href={`/coach/${coach.id}`} passHref>
-            <Button variant="contained" size="large">
+            <Button variant="contained" size="large" sx={{ marginRight: 1 }}>
               View Coach
             </Button>
           </Link>
