@@ -2,6 +2,10 @@
 
 A Coach viewing application built using Next.js, Typescript and GraphQL.
 
+![Home](./public/images/Home_Readme.png)
+
+![Edit](./public/images/Edit_Readme.png)
+
 <!-- Table of Contents -->
 
 ## Table of Contents
@@ -37,10 +41,6 @@ We want do see how familiar you are with typescript, graphql and next.
 - Media queries cover tablet use of the application for staff in the stores.
 - Pagination to not overload the user with all the coaches.
 - Ability to favourite the coaches that are your favourite. I used Apollo's Reactive variables for this, we could also expand this to persist between sessions by using the[apollo-3-cache-persist](https://github.com/apollographql/apollo-cache-persist).
-
-![Home](./public/images/Home_Readme.png)
-
-![Edit](./public/images/Edit_Readme.png)
 
 <!-- Further Goals -->
 
