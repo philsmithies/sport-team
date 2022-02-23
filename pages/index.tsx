@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useQuery, useLazyQuery } from "@apollo/client";
@@ -9,13 +10,21 @@ import {
 import CoachInfoCard from "../components/CoachInfoCard";
 import FilterSportsGroup from "../components/FilterSportsGroup";
 
-import { Typography, CircularProgress, Grid, Container } from "@mui/material";
+import {
+  Typography,
+  CircularProgress,
+  Grid,
+  Container,
+  Button,
+} from "@mui/material";
 
 const Home: NextPage = () => {
-  const { data, error, loading, refetch } = useQuery(
+  const [take, setTake] = useState<number>(20);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
+  const { data, error, loading, refetch, fetchMore } = useQuery(
     ALL_COACHES_AND_SPECIALTIES,
     {
-      variables: { take: 50, orderBy: [{ id: "asc" }] },
+      variables: { skip: 0, take, orderBy: [{ id: "asc" }] },
     }
   );
 
@@ -74,6 +83,7 @@ const Home: NextPage = () => {
         <Typography variant="h4" sx={{ marginBottom: 4 }}>
           All Coaches
         </Typography>
+
         <FilterSportsGroup
           refetch={refetch}
           filterSports={filterSports}
@@ -81,13 +91,37 @@ const Home: NextPage = () => {
         />
 
         {filteredData &&
-          filteredData?.coaches.map((coach: any) => (
+          filteredData?.coaches.map((coach) => (
             <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
           ))}
-        {!filteredData &&
-          data?.coaches.map((coach: any) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
-          ))}
+
+        {!filteredData && (
+          <div>
+            {data?.coaches.map((coach) => (
+              <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            ))}
+            <Button
+              variant="contained"
+              onClick={() => {
+                const currentLength = data.coaches.length;
+                setLoadingMore(true);
+                fetchMore({
+                  variables: {
+                    offset: currentLength,
+                    take,
+                  },
+                }).then((fetchMoreResult) => {
+                  setTake(
+                    currentLength + fetchMoreResult.data["coaches"].length
+                  );
+                  setLoadingMore(false);
+                });
+              }}
+            >
+              {!loadingMore ? "Fetch more" : "Loading....."}
+            </Button>
+          </div>
+        )}
       </Container>
     </>
   );

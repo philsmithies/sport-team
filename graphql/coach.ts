@@ -1,8 +1,12 @@
 import { gql } from "apollo-server-micro";
 
 export const ALL_COACHES_AND_SPECIALTIES = gql`
-  query Coaches($take: Int, $orderBy: [CoachOrderByWithRelationInput!]) {
-    coaches(take: $take, orderBy: $orderBy) {
+  query Coaches(
+    $skip: Int
+    $take: Int
+    $orderBy: [CoachOrderByWithRelationInput!]
+  ) {
+    coaches(skip: $skip, take: $take, orderBy: $orderBy) {
       id
       email
       name
