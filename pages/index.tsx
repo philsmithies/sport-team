@@ -107,7 +107,6 @@ const Home: NextPage = () => {
         <FilterSportsGroup
           refetch={refetch}
           filterSports={filterSports}
-          filteredTake={filteredTake}
           specialties={data?.specialties}
         />
 

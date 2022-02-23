@@ -5,7 +5,6 @@ import IconSwitch from "../../../utils/IconSwitch";
 const FilterSports = ({
   filterSports,
   sportName,
-  filteredTake,
 }: FilterSports): JSX.Element => {
   return (
     <>
@@ -19,7 +18,7 @@ const FilterSports = ({
         onClick={() =>
           filterSports({
             variables: {
-              take: filteredTake,
+              take: 15,
               skip: 0,
               where: {
                 specialties: { some: { name: { equals: sportName } } },

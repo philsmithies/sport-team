@@ -1,5 +1,4 @@
 export default interface FilterTypes {
-  filteredTake: number;
   filterSports(): any;
   refetch(arg1: {
     orderBy: {

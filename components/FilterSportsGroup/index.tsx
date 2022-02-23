@@ -7,7 +7,6 @@ const FilterSportsGroup = ({
   filterSports,
   refetch,
   specialties,
-  filteredTake,
 }: FilterTypes): JSX.Element => {
   return (
     <Container
