@@ -19,7 +19,7 @@ const CoachInfoCard = ({
         sx={{
           border: 1,
           borderRadius: 5,
-          minHeight: 120,
+          minHeight: 140,
           marginTop: 5,
           marginBottom: 5,
           paddingRight: 3,
@@ -59,7 +59,6 @@ const CoachInfoCard = ({
                 display: { xs: "none", sm: "flex" },
                 justifyContent: "center",
                 alignItems: "center",
-                flexWrap: "wrap",
               }}
             >
               <Typography variant="body2" sx={{ marginRight: 1 }}>
@@ -88,6 +87,7 @@ const CoachInfoCard = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexShrink: 1,
           }}
         >
           <Link href={`/coach/${coach.id}`} passHref>

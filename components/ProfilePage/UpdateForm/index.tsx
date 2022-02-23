@@ -12,7 +12,6 @@ import {
   Grid,
   FormControl,
   TextField,
-  Typography,
 } from "@mui/material";
 import UpdateIcon from "@mui/icons-material/Update";
 import AddSpecialties from "./AddSpecialties";

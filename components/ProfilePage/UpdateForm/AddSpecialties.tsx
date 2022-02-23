@@ -1,4 +1,5 @@
 import { SpecialtyProps } from "./types";
+import { Specialty } from "@prisma/client";
 import UpdateCoach from "../../../types/UpdateCoach";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
@@ -10,17 +11,13 @@ import {
   UPDATE_SPECIALTIES,
 } from "../../../graphql/specialty";
 import { useState, useEffect } from "react";
-import { Box, Chip, Container, Typography } from "@mui/material";
-
-import { Specialty } from "@prisma/client";
+import { Box, Chip, Typography } from "@mui/material";
 
 const AddSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
   const { data, error } = useQuery(ALL_SPECIALTIES);
   const id = coach.id;
-  /**
-   * TODO add error handling for mutation
-   */
+
   const [updateSpecialty] = useMutation(UPDATE_SPECIALTIES, {
     refetchQueries: [
       {
