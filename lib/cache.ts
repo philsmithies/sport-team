@@ -10,7 +10,14 @@ export const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          coaches: offsetLimitPagination(),
+          coaches: {
+            keyArgs: false,
+            // Concatenate the incoming list items with
+            // the existing list items.
+            merge(existing = [], incoming) {
+              return [...existing, ...incoming];
+            },
+          },
           favouritedItems: {
             read() {
               return favouritedCoachesVar();
