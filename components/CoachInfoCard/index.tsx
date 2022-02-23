@@ -1,53 +1,21 @@
-// import CoachProps from "./types";
+import { CoachInfo } from "./types";
 import Link from "next/link";
 import { Grid, Box, Typography, Button, Avatar, Chip } from "@mui/material";
 import AddToFavouritesButton from "./AddtoFavouritesButton";
-
-/**
- * !export on the mui library won't let me chain the imports duplicated logic on renderSwitch
- */
+import IconSwitch from "../../utils/IconSwitch";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SportsFootball from "@mui/icons-material/SportsFootball";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import GolfCourseIcon from "@mui/icons-material/GolfCourse";
-import SportsTennisIcon from "@mui/icons-material/SportsTennis";
-import SportsIcon from "@mui/icons-material/Sports";
-import PoolIcon from "@mui/icons-material/Pool";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 
-function renderSwitch(param) {
-  switch (param) {
-    case "Football":
-      return <SportsSoccerIcon />;
-    case "Basketball":
-      return <SportsBasketballIcon />;
-    case "Hockey":
-      return <SportsHockeyIcon />;
-    case "Soccer":
-      return <SportsSoccerIcon />;
-    case "Golf":
-      return <GolfCourseIcon />;
-    case "Tennis":
-      return <SportsTennisIcon />;
-    case "Swimming":
-      return <PoolIcon />;
-    case "Rugby":
-      return <SportsFootball />;
-    default:
-      return <SportsIcon />;
-  }
-}
-
-const CoachInfoCard = ({ isHearted = false, coach }) => {
+const CoachInfoCard = ({
+  coach,
+  isHearted = false,
+}: CoachInfo): JSX.Element => {
   return (
     <>
       <Grid
         container
-        spacing={1}
         sx={{
           border: 1,
           borderRadius: 5,
@@ -68,7 +36,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
         >
           <Avatar
             sx={{
-              bgcolor: "secondary.main",
+              backgroundColor: "secondary.main",
               width: 50,
               height: 50,
               marginLeft: 3,
@@ -88,7 +56,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
             </Link>
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", md: "flex" },
                 justifyContent: "center",
                 alignItems: "center",
                 flexWrap: "wrap",
@@ -100,7 +68,7 @@ const CoachInfoCard = ({ isHearted = false, coach }) => {
               {coach.specialties.map((skill) => {
                 return (
                   <Chip
-                    icon={renderSwitch(skill.name)}
+                    icon={IconSwitch(skill.name)}
                     key={skill.id}
                     label={skill.name}
                     component="a"

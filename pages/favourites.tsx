@@ -1,8 +1,9 @@
 import Head from "next/head";
+import type { NextPage } from "next";
 import { Container, Typography } from "@mui/material";
 import FavouritedCoaches from "../components/FavouritedCoaches";
 
-const Favourites = () => {
+const Favourites: NextPage = () => {
   return (
     <>
       <Head>

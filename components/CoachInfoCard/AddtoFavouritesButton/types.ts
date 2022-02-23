@@ -1,4 +1,4 @@
-export interface CoachInfo {
+export default interface CoachFavourite {
   isHearted: boolean;
   coach: {
     id: number;

@@ -1,30 +1,23 @@
+import React from "react";
 import type { NextPage } from "next";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import Head from "next/head";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import {
-  Typography,
-  CircularProgress,
-  Grid,
-  Container,
-  Button,
-} from "@mui/material";
-import {
-  ALL_COACHES,
-  CREATE_COACH,
+  ALL_COACHES_AND_SPECIALTIES,
   FILTER_SPECIALTIES,
 } from "../graphql/coach";
 import CoachInfoCard from "../components/CoachInfoCard";
-import { useState } from "react";
-import FilterSports from "../components/FilterSportsGroup/FilterSports";
 import FilterSportsGroup from "../components/FilterSportsGroup";
-import { ALL_SPECIALTIES } from "../graphql/specialty";
+
+import { Typography, CircularProgress, Grid, Container } from "@mui/material";
 
 const Home: NextPage = () => {
-  const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
-    variables: { take: 50, orderBy: [{ id: "asc" }] },
-  });
-
-  const { data: allSpecialties } = useQuery(ALL_SPECIALTIES);
+  const { data, error, loading, refetch } = useQuery(
+    ALL_COACHES_AND_SPECIALTIES,
+    {
+      variables: { take: 50, orderBy: [{ id: "asc" }] },
+    }
+  );
 
   const [
     filterSports,
@@ -39,27 +32,6 @@ const Home: NextPage = () => {
       where: { specialties: { some: { name: { equals: "Tennis" } } } },
     },
   });
-
-  const [user, setUser] = useState({});
-
-  const handleOnChange = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value });
-  };
-
-  const [createUser] = useMutation(CREATE_COACH, {
-    refetchQueries: [ALL_COACHES, "Coaches"],
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    createUser({
-      variables: {
-        data: {
-          ...user,
-        },
-      },
-    });
-  };
 
   if (loading || filteredLoading)
     return (
@@ -88,7 +60,7 @@ const Home: NextPage = () => {
         }}
       >
         <Typography variant="h1">
-          Looks like there was a problem: {error.message}
+          Looks like there was a problem: {error?.message}
         </Typography>
       </Grid>
     );
@@ -105,16 +77,16 @@ const Home: NextPage = () => {
         <FilterSportsGroup
           refetch={refetch}
           filterSports={filterSports}
-          specialties={allSpecialties?.specialties}
+          specialties={data?.specialties}
         />
 
         {filteredData &&
-          filteredData?.coaches.map((coach) => (
-            <CoachInfoCard coach={coach} key={coach.id} />
+          filteredData?.coaches.map((coach: any) => (
+            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
           ))}
         {!filteredData &&
-          data?.coaches.map((coach) => (
-            <CoachInfoCard coach={coach} key={coach.id} />
+          data?.coaches.map((coach: any) => (
+            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
           ))}
       </Container>
     </>

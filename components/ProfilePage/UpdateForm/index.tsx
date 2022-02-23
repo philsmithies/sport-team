@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH, UPDATE_COACH } from "../../../graphql/coach";
 import {
@@ -16,8 +17,9 @@ import {
 import UpdateIcon from "@mui/icons-material/Update";
 import AddSpecialties from "./AddSpecialties";
 import RemoveSpecialties from "./RemoveSpecialties";
+import UpdateCoach from "../../../types/UpdateCoach";
 
-const UpdateForm = ({ coach }) => {
+const UpdateForm = ({ coach }: UpdateCoach): JSX.Element => {
   const [id, setId] = useState(coach.id);
   const [name, setName] = useState(coach.name);
   const [email, setEmail] = useState(coach.email);
@@ -34,14 +36,6 @@ const UpdateForm = ({ coach }) => {
     setOpen(false);
   };
 
-  /***
-   * !see if we can use the spread operator instead of separate states
-   */
-
-  // const handleOnChange = (event) => {
-  //   setUpdatedCoach({ ...coach, [event.target.name]: event.target.value });
-  // };
-
   const [updateCoach] = useMutation(UPDATE_COACH, {
     refetchQueries: [
       {
@@ -53,8 +47,7 @@ const UpdateForm = ({ coach }) => {
     ],
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     handleClose();
     try {
       updateCoach({

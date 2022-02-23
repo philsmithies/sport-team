@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { makeVar } from "@apollo/client";
 
-export const favouritedCoachesVar = makeVar([]);
+export const favouritedCoachesVar = makeVar([] as any);
 
 export const client = new ApolloClient({
   uri: "http://localhost:3000/api",

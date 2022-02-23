@@ -1,17 +1,20 @@
+import { SpecialtyProps } from "./types";
+import UpdateCoach from "../../../types/UpdateCoach";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../../graphql/coach";
+import IconSwitch from "../../../utils/IconSwitch";
 import {
   ALL_SPECIALTIES,
   REMOVE_SPECIALTY,
   UPDATE_SPECIALTIES,
 } from "../../../graphql/specialty";
-
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
-const AddSpecialties = ({ coach }) => {
+import { Specialty } from "@prisma/client";
+
+const AddSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
   const { data, error } = useQuery(ALL_SPECIALTIES);
   const id = coach.id;
@@ -29,7 +32,7 @@ const AddSpecialties = ({ coach }) => {
     ],
   });
 
-  const handleClick = (specialtyId) => {
+  const handleClick = (specialtyId: number) => {
     try {
       updateSpecialty({
         variables: {
@@ -47,7 +50,7 @@ const AddSpecialties = ({ coach }) => {
   useEffect(() => {
     setFilteredSpecialties(
       data?.specialties.filter(
-        ({ id: specialty1 }) =>
+        ({ id: specialty1 }: SpecialtyProps) =>
           !coach.specialties.some(
             ({ id: specialty2 }) => specialty1 === specialty2
           )
@@ -56,7 +59,7 @@ const AddSpecialties = ({ coach }) => {
   }, [data, coach]);
 
   if (error) {
-    return <h1> {error} </h1>;
+    return <Typography variant="h4"> {error} </Typography>;
   }
 
   return (
@@ -66,15 +69,15 @@ const AddSpecialties = ({ coach }) => {
           Add Specialties
         </Typography>
       )}
-      {filteredSpecialties?.map((specialty) => (
+      {filteredSpecialties?.map((specialty: Specialty) => (
         <Chip
-          icon={<SportsFootballIcon />}
+          icon={IconSwitch(specialty.name)}
           key={specialty.id}
           label={specialty.name}
           component="a"
           variant="outlined"
           sx={{ height: 32 }}
-          onClick={(e) => handleClick(specialty.id)}
+          onClick={() => handleClick(specialty.id)}
         />
       ))}
     </Box>

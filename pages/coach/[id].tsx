@@ -1,23 +1,24 @@
 import prisma from "../../lib/prisma";
-import ProfileComponent from "../../components/ProfilePage/ProfileDetails";
+import ProfileComponent from "../../components/ProfilePage";
+import UpdateCoach from "../../types/UpdateCoach";
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
-const Coach = ({ coach }) => {
-  return <ProfileComponent id={coach.id} />;
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
+
+const Coach = ({ coach }: UpdateCoach) => {
+  return <ProfileComponent coach={coach} />;
 };
 
 export default Coach;
 
-export const getServerSideProps = async ({ params }) => {
-  const id = parseInt(params.id);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const params = context.params as Params;
   const coach = await prisma.coach.findUnique({
-    where: { id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      phone: true,
-      website: true,
-      specialties: true,
+    where: {
+      id: parseInt(params!.id),
     },
   });
   return {

@@ -1,16 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../../graphql/coach";
-import {
-  ALL_SPECIALTIES,
-  REMOVE_SPECIALTY,
-  UPDATE_SPECIALTIES,
-} from "../../../graphql/specialty";
-import { useState, useEffect } from "react";
-import { Box, Chip, Container, Typography } from "@mui/material";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
+import { REMOVE_SPECIALTY } from "../../../graphql/specialty";
+import { Box, Chip, Typography } from "@mui/material";
+import UpdateCoach from "../../../types/UpdateCoach";
+import IconSwitch from "../../../utils/IconSwitch";
+import { Specialty } from "@prisma/client";
 
-const RemoveSpecialties = ({ coach }) => {
+const RemoveSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
   const {
     data: profile,
     error,
@@ -35,7 +32,7 @@ const RemoveSpecialties = ({ coach }) => {
     }
   );
 
-  const handleRemove = (specialtyId) => {
+  const handleRemove = (specialtyId: number) => {
     try {
       removeSpecialty({
         variables: {
@@ -56,10 +53,10 @@ const RemoveSpecialties = ({ coach }) => {
           Remove Specialties
         </Typography>
       )}
-      {profile.coach.specialties?.map((specialty) => {
+      {profile.coach.specialties?.map((specialty: Specialty) => {
         return (
           <Chip
-            icon={<SportsFootballIcon />}
+            icon={IconSwitch(specialty.name)}
             key={specialty.id}
             label={specialty.name}
             component="a"

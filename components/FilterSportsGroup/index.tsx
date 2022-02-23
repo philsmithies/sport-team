@@ -1,10 +1,21 @@
 import FilterSports from "./FilterSports";
 import { Box, Button, Container, Typography } from "@mui/material";
+import { Specialty } from "@prisma/client";
+import FilterTypes from "./types";
 
-const FilterSportsGroup = ({ filterSports, refetch, specialties }) => {
+const FilterSportsGroup = ({
+  filterSports,
+  refetch,
+  specialties,
+}: FilterTypes): JSX.Element => {
   return (
     <Container
-      sx={{ border: 0.5, borderRadius: 5, boxShadow: 2, marginBottom: 5 }}
+      sx={{
+        border: 0.5,
+        borderRadius: 5,
+        boxShadow: 2,
+        marginBottom: 5,
+      }}
     >
       <Typography variant="h6" sx={{ marginTop: 2 }}>
         Filters
@@ -29,7 +40,7 @@ const FilterSportsGroup = ({ filterSports, refetch, specialties }) => {
         </Button>
       </Box>
       <Box sx={{ marginY: 2 }}>
-        {specialties?.map((specialty) => (
+        {specialties?.map((specialty: Specialty) => (
           <FilterSports
             key={specialty.id}
             filterSports={filterSports}
