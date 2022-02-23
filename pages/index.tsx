@@ -1,6 +1,6 @@
+import type { NextPage } from "next";
 import React from "react";
 import { useState } from "react";
-import type { NextPage } from "next";
 import Head from "next/head";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import {
@@ -11,7 +11,6 @@ import CoachInfoCard from "../components/CoachInfoCard";
 import FilterSportsGroup from "../components/FilterSportsGroup";
 
 import {
-  Box,
   Typography,
   CircularProgress,
   Grid,
@@ -31,17 +30,19 @@ const Home: NextPage = () => {
     }
   );
 
-  async function updateFeed() {
+  const updateFeed = () => {
     const currentLength = data.coaches.length;
-    await fetchMore({
+    setLoadingMore(true);
+    fetchMore({
       variables: {
         offset: currentLength,
         take,
       },
     }).then(() => {
-      setTake(currentLength + take);
+      setLoadingMore(false);
+      setTake(take + currentLength);
     });
-  }
+  };
 
   const [
     filterSports,
@@ -125,14 +126,11 @@ const Home: NextPage = () => {
             ))}
             <Container sx={{ display: "flex", justifyContent: "center" }}>
               <Button size="large" variant="outlined" onClick={updateFeed}>
-                Fetch More Coaches...
+                {loadingMore ? "Loading....." : "More Coaches"}
               </Button>
             </Container>
           </>
         )}
-        <Button size="large" variant="outlined" onClick={updateFeed}>
-          More Clicks...
-        </Button>
       </Container>
     </>
   );

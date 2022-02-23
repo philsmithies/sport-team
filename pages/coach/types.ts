@@ -31,10 +31,3 @@ export default interface SelectedCoach {
     name: string;
   }[];
 }
-
-export default interface FetchMoreResult {
-  data: {
-    coaches: [];
-    specialties: [];
-  }[];
-}
