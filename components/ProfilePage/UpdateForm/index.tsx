@@ -17,7 +17,7 @@ import {
 import UpdateIcon from "@mui/icons-material/Update";
 import AddSpecialties from "./AddSpecialties";
 import RemoveSpecialties from "./RemoveSpecialties";
-import { UpdateCoach } from "./types";
+import UpdateCoach from "../../../types/UpdateCoach";
 
 const UpdateForm = ({ coach }: UpdateCoach) => {
   const [id, setId] = useState(coach.id);
@@ -36,14 +36,6 @@ const UpdateForm = ({ coach }: UpdateCoach) => {
     setOpen(false);
   };
 
-  /***
-   * !see if we can use the spread operator instead of separate states
-   */
-
-  // const handleOnChange = (event) => {
-  //   setUpdatedCoach({ ...coach, [event.target.name]: event.target.value });
-  // };
-
   const [updateCoach] = useMutation(UPDATE_COACH, {
     refetchQueries: [
       {
@@ -55,8 +47,7 @@ const UpdateForm = ({ coach }: UpdateCoach) => {
     ],
   });
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     handleClose();
     try {
       updateCoach({
@@ -148,7 +139,7 @@ const UpdateForm = ({ coach }: UpdateCoach) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button onClick={(e) => handleSubmit}>
+          <Button onClick={handleSubmit}>
             <UpdateIcon sx={{ marginRight: 1 }} />
             Update Coach
           </Button>

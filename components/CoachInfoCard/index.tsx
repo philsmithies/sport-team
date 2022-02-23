@@ -42,7 +42,7 @@ function renderSwitch(param: String) {
   }
 }
 
-const CoachInfoCard = ({ coach }: CoachInfo) => {
+const CoachInfoCard = ({ coach, isHearted = false }: CoachInfo) => {
   return (
     <>
       <Grid
@@ -67,7 +67,7 @@ const CoachInfoCard = ({ coach }: CoachInfo) => {
         >
           <Avatar
             sx={{
-              bgcolor: "secondary.main",
+              backgroundColor: "secondary.main",
               width: 50,
               height: 50,
               marginLeft: 3,
@@ -126,7 +126,7 @@ const CoachInfoCard = ({ coach }: CoachInfo) => {
               View Coach
             </Button>
           </Link>
-          <AddToFavouritesButton coach={coach} isHearted={false} />
+          <AddToFavouritesButton coach={coach} isHearted={isHearted} />
         </Grid>
       </Grid>
     </>
