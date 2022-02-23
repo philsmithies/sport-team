@@ -37,19 +37,22 @@ const NavBar = (): JSX.Element => {
         }}
       >
         <Toolbar>
-          <Box mr={10} sx={{ flexGrow: { xs: "none", sm: 1 } }}>
+          <Box mr={10}>
             <Link href="/" passHref>
-              <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Box
+                sx={{ display: { xs: "none", sm: "block" } }}
+                className="nav-logo"
+              >
                 <Image
                   src="/images/logo.png"
                   alt="Sport Thieme Logo"
                   height={50}
                   width={220}
-                  className="nav-logo"
                 />
               </Box>
             </Link>
           </Box>
+          <Box sx={{ flexGrow: { xs: "none", sm: 1 } }} />
           <ButtonGroup size="large" aria-label="large button group">
             <Link href="/" passHref>
               <Button

@@ -22,9 +22,7 @@ a {
 }
 
 .nav-logo {
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 .link-hover {

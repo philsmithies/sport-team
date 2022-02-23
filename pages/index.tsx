@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useQuery, useLazyQuery } from "@apollo/client";
@@ -9,15 +10,38 @@ import {
 import CoachInfoCard from "../components/CoachInfoCard";
 import FilterSportsGroup from "../components/FilterSportsGroup";
 
-import { Typography, CircularProgress, Grid, Container } from "@mui/material";
+import {
+  Box,
+  Typography,
+  CircularProgress,
+  Grid,
+  Container,
+  Button,
+} from "@mui/material";
+import SelectedCoach from "../types/SelectedCoach";
 
 const Home: NextPage = () => {
-  const { data, error, loading, refetch } = useQuery(
+  const [take, setTake] = useState(15);
+  const [filteredTake, setFilteredTake] = useState(15);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const { data, error, loading, refetch, fetchMore } = useQuery(
     ALL_COACHES_AND_SPECIALTIES,
     {
-      variables: { take: 50, orderBy: [{ id: "asc" }] },
+      variables: { skip: 0, take, orderBy: [{ id: "asc" }] },
     }
   );
+
+  async function updateFeed() {
+    const currentLength = data.coaches.length;
+    await fetchMore({
+      variables: {
+        offset: currentLength,
+        take,
+      },
+    }).then(() => {
+      setTake(currentLength + take);
+    });
+  }
 
   const [
     filterSports,
@@ -26,10 +50,15 @@ const Home: NextPage = () => {
       refetch: refetchFilteredData,
       loading: filteredLoading,
       error: filteredError,
+      fetchMore: fetchMoreFilteredData,
     },
   ] = useLazyQuery(FILTER_SPECIALTIES, {
     variables: {
-      where: { specialties: { some: { name: { equals: "Tennis" } } } },
+      where: {
+        skip: 0,
+        take: filteredTake,
+        specialties: { some: { name: { equals: "Tennis" } } },
+      },
     },
   });
 
@@ -74,20 +103,37 @@ const Home: NextPage = () => {
         <Typography variant="h4" sx={{ marginBottom: 4 }}>
           All Coaches
         </Typography>
+
         <FilterSportsGroup
           refetch={refetch}
           filterSports={filterSports}
+          filteredTake={filteredTake}
           specialties={data?.specialties}
         />
 
-        {filteredData &&
-          filteredData?.coaches.map((coach: any) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
-          ))}
-        {!filteredData &&
-          data?.coaches.map((coach: any) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
-          ))}
+        {filteredData && (
+          <>
+            {filteredData?.coaches.map((coach: SelectedCoach) => (
+              <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            ))}
+          </>
+        )}
+
+        {!filteredData && (
+          <>
+            {data?.coaches.map((coach: SelectedCoach) => (
+              <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            ))}
+            <Container sx={{ display: "flex", justifyContent: "center" }}>
+              <Button size="large" variant="outlined" onClick={updateFeed}>
+                Fetch More Coaches...
+              </Button>
+            </Container>
+          </>
+        )}
+        <Button size="large" variant="outlined" onClick={updateFeed}>
+          More Clicks...
+        </Button>
       </Container>
     </>
   );

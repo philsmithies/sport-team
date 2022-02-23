@@ -1,8 +1,12 @@
 import { gql } from "apollo-server-micro";
 
 export const ALL_COACHES_AND_SPECIALTIES = gql`
-  query Coaches($take: Int, $orderBy: [CoachOrderByWithRelationInput!]) {
-    coaches(take: $take, orderBy: $orderBy) {
+  query Coaches(
+    $skip: Int
+    $take: Int
+    $orderBy: [CoachOrderByWithRelationInput!]
+  ) {
+    coaches(skip: $skip, take: $take, orderBy: $orderBy) {
       id
       email
       name
@@ -70,8 +74,8 @@ export const UPDATE_COACH = gql`
 `;
 
 export const FILTER_SPECIALTIES = gql`
-  query Coaches($where: CoachWhereInput) {
-    coaches(where: $where) {
+  query Coaches($take: Int, $skip: Int, $where: CoachWhereInput) {
+    coaches(take: $take, skip: $skip, where: $where) {
       id
       email
       name
