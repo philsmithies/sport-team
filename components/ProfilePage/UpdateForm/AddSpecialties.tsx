@@ -1,3 +1,5 @@
+import { SpecialtyProps } from "./types";
+import UpdateCoach from "../../../types/UpdateCoach";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../../graphql/coach";
@@ -10,7 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import { UpdateCoach, SpecialtyProps } from "./types";
+
 import { Specialty } from "@prisma/client";
 
 const AddSpecialties = ({ coach }: UpdateCoach) => {

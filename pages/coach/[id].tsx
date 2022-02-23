@@ -1,6 +1,6 @@
 import prisma from "../../lib/prisma";
 import ProfileComponent from "../../components/ProfilePage";
-import Coach from "./types";
+import UpdateCoach from "../../types/UpdateCoach";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
@@ -8,7 +8,7 @@ interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-const Coach = ({ coach }: Coach) => {
+const Coach = ({ coach }: UpdateCoach) => {
   return <ProfileComponent coach={coach} />;
 };
 

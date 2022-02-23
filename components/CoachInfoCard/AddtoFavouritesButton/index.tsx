@@ -33,7 +33,8 @@ const AddToFavouritesButton = ({
             setHearted(false);
             const allCoaches = favouritedCoachesVar();
             const filteredCoaches = allCoaches.filter(
-              (filteredCoach) => filteredCoach["id"] !== coach.id
+              (filteredCoach: { [x: string]: number }) =>
+                filteredCoach["id"] !== coach.id
             );
             favouritedCoachesVar(filteredCoaches);
           }}

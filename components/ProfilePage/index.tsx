@@ -1,4 +1,4 @@
-import UpdateCoach from "./types";
+import UpdateCoach from "../../types/UpdateCoach";
 import { Specialty } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
