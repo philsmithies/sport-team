@@ -1,24 +1,24 @@
-import type { NextPage } from "next";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
-import Head from "next/head";
-import { Typography, CircularProgress, Grid, Container } from "@mui/material";
-import {
-  ALL_COACHES,
-  CREATE_COACH,
-  FILTER_SPECIALTIES,
-} from "../graphql/coach";
-import CoachInfoCard from "../components/CoachInfoCard";
-import { useState } from "react";
-import FilterSportsGroup from "../components/FilterSportsGroup";
-import { ALL_SPECIALTIES } from "../graphql/specialty";
 import React from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { ALL_COACHES, FILTER_SPECIALTIES } from "../graphql/coach";
+import { ALL_SPECIALTIES } from "../graphql/specialty";
+import CoachInfoCard from "../components/CoachInfoCard";
+import FilterSportsGroup from "../components/FilterSportsGroup";
+
+import { Typography, CircularProgress, Grid, Container } from "@mui/material";
 
 const Home: NextPage = () => {
   const { data, error, loading, refetch } = useQuery(ALL_COACHES, {
     variables: { take: 50, orderBy: [{ id: "asc" }] },
   });
 
-  const { data: allSpecialties } = useQuery(ALL_SPECIALTIES);
+  const {
+    data: allSpecialties,
+    loading: allSpecialtiesLoading,
+    error: allSpecialtiesError,
+  } = useQuery(ALL_SPECIALTIES);
 
   const [
     filterSports,
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
     },
   });
 
-  if (loading || filteredLoading)
+  if (loading || filteredLoading || allSpecialtiesLoading)
     return (
       <Grid
         container
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
       </Grid>
     );
 
-  if (error || filteredError)
+  if (error || filteredError || allSpecialtiesError)
     return (
       <Grid
         container
@@ -83,11 +83,11 @@ const Home: NextPage = () => {
 
         {filteredData &&
           filteredData?.coaches.map((coach: any) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            <CoachInfoCard coach={coach} key={coach.id} />
           ))}
         {!filteredData &&
           data?.coaches.map((coach: any) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            <CoachInfoCard coach={coach} key={coach.id} />
           ))}
       </Container>
     </>

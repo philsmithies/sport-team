@@ -42,7 +42,7 @@ function renderSwitch(param: String) {
   }
 }
 
-const CoachInfoCard = ({ isHearted, coach }: CoachInfo) => {
+const CoachInfoCard = ({ coach }: CoachInfo) => {
   return (
     <>
       <Grid
@@ -126,7 +126,7 @@ const CoachInfoCard = ({ isHearted, coach }: CoachInfo) => {
               View Coach
             </Button>
           </Link>
-          <AddToFavouritesButton coach={coach} isHearted={isHearted} />
+          <AddToFavouritesButton coach={coach} isHearted={false} />
         </Grid>
       </Grid>
     </>

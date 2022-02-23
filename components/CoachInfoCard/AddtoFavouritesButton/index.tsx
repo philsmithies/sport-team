@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { favouritedCoachesVar } from "../../../lib/cache";
 import { Fab } from "@mui/material";
-import CoachInfoProps from "../types";
+import CoachFavourite from "./types";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-const AddToFavouritesButton = ({ isHearted = false, coach }) => {
+const AddToFavouritesButton = ({
+  isHearted = false,
+  coach,
+}: CoachFavourite) => {
   const [hearted, setHearted] = useState(isHearted);
   return (
     <div>
