@@ -84,11 +84,17 @@ const NavBar = (): JSX.Element => {
             </Link>
           </ButtonGroup>
           <Dialog onClose={handleClose} open={open} sx={{ borderRadius: 10 }}>
-            <DialogTitle>
-              A Project by Phil Smithies.
+            <DialogTitle
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              A Project by Phil Smithies
               <br />
               <Link href="https://www.github.com/philsmithies" passHref>
-                https//www.github.com/philsmithies
+                www.github.com/philsmithies
               </Link>
             </DialogTitle>
           </Dialog>

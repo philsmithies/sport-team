@@ -8,14 +8,12 @@ import {
   REMOVE_SPECIALTY,
   UPDATE_SPECIALTIES,
 } from "../../../graphql/specialty";
-
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
 import { Specialty } from "@prisma/client";
 
-const AddSpecialties = ({ coach }: UpdateCoach) => {
+const AddSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
   const [filteredSpecialties, setFilteredSpecialties] = useState([]);
   const { data, error } = useQuery(ALL_SPECIALTIES);
   const id = coach.id;
@@ -60,7 +58,7 @@ const AddSpecialties = ({ coach }: UpdateCoach) => {
   }, [data, coach]);
 
   if (error) {
-    return <h1> {error} </h1>;
+    return <Typography variant="h4"> {error} </Typography>;
   }
 
   return (
@@ -72,7 +70,6 @@ const AddSpecialties = ({ coach }: UpdateCoach) => {
       )}
       {filteredSpecialties?.map((specialty: Specialty) => (
         <Chip
-          icon={<SportsFootballIcon />}
           key={specialty.id}
           label={specialty.name}
           component="a"

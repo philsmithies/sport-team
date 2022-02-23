@@ -19,7 +19,7 @@ import AddSpecialties from "./AddSpecialties";
 import RemoveSpecialties from "./RemoveSpecialties";
 import UpdateCoach from "../../../types/UpdateCoach";
 
-const UpdateForm = ({ coach }: UpdateCoach) => {
+const UpdateForm = ({ coach }: UpdateCoach): JSX.Element => {
   const [id, setId] = useState(coach.id);
   const [name, setName] = useState(coach.name);
   const [email, setEmail] = useState(coach.email);

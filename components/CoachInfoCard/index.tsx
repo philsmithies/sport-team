@@ -42,7 +42,10 @@ function renderSwitch(param: String) {
   }
 }
 
-const CoachInfoCard = ({ coach, isHearted = false }: CoachInfo) => {
+const CoachInfoCard = ({
+  coach,
+  isHearted = false,
+}: CoachInfo): JSX.Element => {
   return (
     <>
       <Grid

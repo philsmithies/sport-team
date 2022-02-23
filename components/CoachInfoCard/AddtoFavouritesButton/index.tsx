@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const AddToFavouritesButton = ({
   isHearted = false,
   coach,
-}: CoachFavourite) => {
+}: CoachFavourite): JSX.Element => {
   const [hearted, setHearted] = useState(isHearted);
   return (
     <div>

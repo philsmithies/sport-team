@@ -6,7 +6,7 @@ import { favouritedCoachesVar } from "../../lib/cache";
 import { Typography, Container } from "@mui/material";
 import CoachInfoCard from "../CoachInfoCard";
 
-const FavouritedCoaches = () => {
+const FavouritedCoaches = (): JSX.Element => {
   const favouritedItems = useReactiveVar(favouritedCoachesVar);
   return (
     <Container

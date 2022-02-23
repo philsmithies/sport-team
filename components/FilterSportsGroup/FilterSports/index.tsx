@@ -14,7 +14,10 @@ import SportsTennisIcon from "@mui/icons-material/SportsTennis";
 import SportsIcon from "@mui/icons-material/Sports";
 import PoolIcon from "@mui/icons-material/Pool";
 
-const FilterSports = ({ filterSports, sportName }: FilterSports) => {
+const FilterSports = ({
+  filterSports,
+  sportName,
+}: FilterSports): JSX.Element => {
   function renderSwitch(param: string) {
     switch (param) {
       case "Football":
