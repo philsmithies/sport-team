@@ -30,7 +30,7 @@ const NavBar = (): JSX.Element => {
       <AppBar
         position="static"
         sx={{
-          bgcolor: "white",
+          backgroundColor: "white",
           display: "flex",
           justifyContent: "center",
           height: 120,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as React from "react";
+import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH, UPDATE_COACH } from "../../../graphql/coach";
 import {

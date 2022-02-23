@@ -1,50 +1,15 @@
 import FilterSports from "./types";
 import { Chip } from "@mui/material";
-
-/**
- * !export on the mui library won't let me chain the imports
- */
-
-import SportsFootball from "@mui/icons-material/SportsFootball";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import GolfCourseIcon from "@mui/icons-material/GolfCourse";
-import SportsTennisIcon from "@mui/icons-material/SportsTennis";
-import SportsIcon from "@mui/icons-material/Sports";
-import PoolIcon from "@mui/icons-material/Pool";
+import IconSwitch from "../../../utils/IconSwitch";
 
 const FilterSports = ({
   filterSports,
   sportName,
 }: FilterSports): JSX.Element => {
-  function renderSwitch(param: string) {
-    switch (param) {
-      case "Football":
-        return <SportsSoccerIcon />;
-      case "Basketball":
-        return <SportsBasketballIcon />;
-      case "Hockey":
-        return <SportsHockeyIcon />;
-      case "Soccer":
-        return <SportsSoccerIcon />;
-      case "Golf":
-        return <GolfCourseIcon />;
-      case "Tennis":
-        return <SportsTennisIcon />;
-      case "Swimming":
-        return <PoolIcon />;
-      case "Rugby":
-        return <SportsFootball />;
-      default:
-        return <SportsIcon />;
-    }
-  }
-
   return (
     <>
       <Chip
-        icon={renderSwitch(sportName)}
+        icon={IconSwitch(sportName)}
         label={sportName}
         component="a"
         variant="outlined"

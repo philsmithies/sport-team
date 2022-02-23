@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../../graphql/coach";
 import { REMOVE_SPECIALTY } from "../../../graphql/specialty";
 import { Box, Chip, Typography } from "@mui/material";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import UpdateCoach from "../../../types/UpdateCoach";
+import IconSwitch from "../../../utils/IconSwitch";
 import { Specialty } from "@prisma/client";
 
 const RemoveSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
@@ -56,6 +56,7 @@ const RemoveSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
       {profile.coach.specialties?.map((specialty: Specialty) => {
         return (
           <Chip
+            icon={IconSwitch(specialty.name)}
             key={specialty.id}
             label={specialty.name}
             component="a"

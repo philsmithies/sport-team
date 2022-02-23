@@ -3,6 +3,7 @@ import UpdateCoach from "../../../types/UpdateCoach";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../../graphql/coach";
+import IconSwitch from "../../../utils/IconSwitch";
 import {
   ALL_SPECIALTIES,
   REMOVE_SPECIALTY,
@@ -70,6 +71,7 @@ const AddSpecialties = ({ coach }: UpdateCoach): JSX.Element => {
       )}
       {filteredSpecialties?.map((specialty: Specialty) => (
         <Chip
+          icon={IconSwitch(specialty.name)}
           key={specialty.id}
           label={specialty.name}
           component="a"

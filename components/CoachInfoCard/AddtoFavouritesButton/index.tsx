@@ -1,7 +1,8 @@
+import CoachFavourite from "./types";
+
 import { useState } from "react";
 import { favouritedCoachesVar } from "../../../lib/cache";
 import { Fab } from "@mui/material";
-import CoachFavourite from "./types";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -10,7 +11,7 @@ const AddToFavouritesButton = ({
   isHearted = false,
   coach,
 }: CoachFavourite): JSX.Element => {
-  const [hearted, setHearted] = useState(isHearted);
+  const [hearted, setHearted] = useState<boolean>(isHearted);
   return (
     <div>
       {!hearted ? (

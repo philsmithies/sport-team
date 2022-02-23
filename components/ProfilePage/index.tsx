@@ -7,7 +7,6 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../graphql/coach";
 import { REMOVE_SPECIALTY } from "../../graphql/specialty";
 import UpdateForm from "./UpdateForm";
-
 import {
   Typography,
   Container,
@@ -18,45 +17,7 @@ import {
   Grid,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-/**
- * !export on the mui library won't let me chain the imports duplicated logic on renderSwitch
- */
-
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SportsFootball from "@mui/icons-material/SportsFootball";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import GolfCourseIcon from "@mui/icons-material/GolfCourse";
-import SportsTennisIcon from "@mui/icons-material/SportsTennis";
-import SportsIcon from "@mui/icons-material/Sports";
-import PoolIcon from "@mui/icons-material/Pool";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-
-function renderSwitch(param: String) {
-  switch (param) {
-    case "Football":
-      return <SportsSoccerIcon />;
-    case "Basketball":
-      return <SportsBasketballIcon />;
-    case "Hockey":
-      return <SportsHockeyIcon />;
-    case "Soccer":
-      return <SportsSoccerIcon />;
-    case "Golf":
-      return <GolfCourseIcon />;
-    case "Tennis":
-      return <SportsTennisIcon />;
-    case "Swimming":
-      return <PoolIcon />;
-    case "Rugby":
-      return <SportsFootball />;
-    default:
-      return <SportsIcon />;
-  }
-}
+import IconSwitch from "../../utils/IconSwitch";
 
 const ProfileDetails = ({ coach }: UpdateCoach): JSX.Element => {
   let id = coach.id;
@@ -204,7 +165,7 @@ const ProfileDetails = ({ coach }: UpdateCoach): JSX.Element => {
             {profile.coach.specialties?.map((specialty: Specialty) => {
               return (
                 <Chip
-                  icon={renderSwitch(specialty.name)}
+                  icon={IconSwitch(specialty.name)}
                   key={specialty.id}
                   label={specialty.name}
                   component="a"
