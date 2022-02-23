@@ -1,4 +1,16 @@
 export default interface FilterSports {
-  filterSports(): any;
   sportName: string;
+  filterSports(arg1: {
+    variables: {
+      where: {
+        specialties: {
+          some: {
+            name: {
+              equals: string;
+            };
+          };
+        };
+      };
+    };
+  }): any;
 }
