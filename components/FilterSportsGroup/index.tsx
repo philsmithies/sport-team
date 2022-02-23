@@ -7,6 +7,7 @@ const FilterSportsGroup = ({
   filterSports,
   refetch,
   specialties,
+  filteredTake,
 }: FilterTypes): JSX.Element => {
   return (
     <Container
@@ -21,22 +22,25 @@ const FilterSportsGroup = ({
         Filters
       </Typography>
       <Box sx={{ marginY: 2 }}>
+        <Typography variant="body2" sx={{ marginBottom: 1 }}>
+          Sort:
+        </Typography>
         <Button
           variant="contained"
-          onClick={() => {
-            refetch({ orderBy: [{ id: "asc" }] });
-          }}
+          onClick={() => refetch({ orderBy: [{ id: "asc" }] })}
           size="small"
           sx={{ marginRight: 2 }}
         >
-          Order A-Z
+          ID (ascending)
         </Button>
         <Button
           variant="contained"
-          onClick={() => refetch({ orderBy: [{ id: "desc" }] })}
+          onClick={() => {
+            refetch({ orderBy: [{ id: "desc" }] });
+          }}
           size="small"
         >
-          Order Z-A
+          ID (descending)
         </Button>
       </Box>
       <Box sx={{ marginY: 2 }}>

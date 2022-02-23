@@ -56,7 +56,7 @@ const CoachInfoCard = ({
             </Link>
             <Box
               sx={{
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", sm: "flex" },
                 justifyContent: "center",
                 alignItems: "center",
                 flexWrap: "wrap",

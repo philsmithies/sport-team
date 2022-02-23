@@ -11,6 +11,7 @@ import CoachInfoCard from "../components/CoachInfoCard";
 import FilterSportsGroup from "../components/FilterSportsGroup";
 
 import {
+  Box,
   Typography,
   CircularProgress,
   Grid,
@@ -19,14 +20,19 @@ import {
 } from "@mui/material";
 
 const Home: NextPage = () => {
-  const [take, setTake] = useState<number>(20);
-  const [loadingMore, setLoadingMore] = useState<boolean>(false);
+  const [take, setTake] = useState(15);
+  const [filteredTake, setFilteredTake] = useState(15);
+  const [loadingMore, setLoadingMore] = useState(false);
   const { data, error, loading, refetch, fetchMore } = useQuery(
     ALL_COACHES_AND_SPECIALTIES,
     {
       variables: { skip: 0, take, orderBy: [{ id: "asc" }] },
     }
   );
+
+  /**
+   * !useLazyQuery's loading doesn't toggle true, seems like its regular problem with Apollo Client
+   */
 
   const [
     filterSports,
@@ -35,10 +41,15 @@ const Home: NextPage = () => {
       refetch: refetchFilteredData,
       loading: filteredLoading,
       error: filteredError,
+      fetchMore: fetchMoreFilteredData,
     },
   ] = useLazyQuery(FILTER_SPECIALTIES, {
     variables: {
-      where: { specialties: { some: { name: { equals: "Tennis" } } } },
+      where: {
+        skip: 0,
+        take: filteredTake,
+        specialties: { some: { name: { equals: "Tennis" } } },
+      },
     },
   });
 
@@ -87,40 +98,68 @@ const Home: NextPage = () => {
         <FilterSportsGroup
           refetch={refetch}
           filterSports={filterSports}
+          filteredTake={filteredTake}
           specialties={data?.specialties}
         />
 
-        {filteredData &&
-          filteredData?.coaches.map((coach) => (
-            <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
-          ))}
+        {filteredData && (
+          <>
+            {filteredData?.coaches.map((coach) => (
+              <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
+            ))}
+            <Container sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                size="large"
+                variant="outlined"
+                onClick={() => {
+                  console.log("clicked");
+                  const currentLength = filteredData.coaches.length;
+                  fetchMoreFilteredData({
+                    variables: {
+                      offset: currentLength,
+                      take,
+                    },
+                  }).then((fetchMoreResult) => {
+                    setFilteredTake(
+                      currentLength + fetchMoreResult.data["coaches"].length
+                    );
+                  });
+                }}
+              >
+                Fetch More Coaches...
+              </Button>
+            </Container>
+          </>
+        )}
 
         {!filteredData && (
-          <div>
+          <>
             {data?.coaches.map((coach) => (
               <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
             ))}
-            <Button
-              variant="contained"
-              onClick={() => {
-                const currentLength = data.coaches.length;
-                setLoadingMore(true);
-                fetchMore({
-                  variables: {
-                    offset: currentLength,
-                    take,
-                  },
-                }).then((fetchMoreResult) => {
-                  setTake(
-                    currentLength + fetchMoreResult.data["coaches"].length
-                  );
-                  setLoadingMore(false);
-                });
-              }}
-            >
-              {!loadingMore ? "Fetch more" : "Loading....."}
-            </Button>
-          </div>
+            <Container sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                size="large"
+                variant="outlined"
+                onClick={() => {
+                  console.log("clicked");
+                  const currentLength = data.coaches.length;
+                  fetchMore({
+                    variables: {
+                      offset: currentLength,
+                      take,
+                    },
+                  }).then((fetchMoreResult) => {
+                    setTake(
+                      currentLength + fetchMoreResult.data["coaches"].length
+                    );
+                  });
+                }}
+              >
+                Fetch More Coaches...
+              </Button>
+            </Container>
+          </>
         )}
       </Container>
     </>
