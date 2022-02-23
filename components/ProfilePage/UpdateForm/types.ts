@@ -15,3 +15,7 @@ export interface UpdateCoach {
     }[];
   };
 }
+
+export interface SpecialtyProps {
+  id: string;
+}

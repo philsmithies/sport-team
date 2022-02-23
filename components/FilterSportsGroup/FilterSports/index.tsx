@@ -1,3 +1,4 @@
+import FilterSports from "./types";
 import { Chip } from "@mui/material";
 
 /**
@@ -13,8 +14,8 @@ import SportsTennisIcon from "@mui/icons-material/SportsTennis";
 import SportsIcon from "@mui/icons-material/Sports";
 import PoolIcon from "@mui/icons-material/Pool";
 
-const FilterSports = ({ filterSports, sportName }) => {
-  function renderSwitch(param) {
+const FilterSports = ({ filterSports, sportName }: FilterSports) => {
+  function renderSwitch(param: string) {
     switch (param) {
       case "Football":
         return <SportsSoccerIcon />;

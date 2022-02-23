@@ -1,8 +1,13 @@
+import UpdateCoach from "./types";
+import { Specialty } from "@prisma/client";
 import Link from "next/link";
+import Image from "next/image";
 import Head from "next/head";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { SINGLE_COACH } from "../../graphql/coach";
 import { REMOVE_SPECIALTY } from "../../graphql/specialty";
+import UpdateForm from "./UpdateForm";
+
 import {
   Typography,
   Container,
@@ -12,13 +17,10 @@ import {
   CircularProgress,
   Grid,
 } from "@mui/material";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import Image from "next/image";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import UpdateForm from "./UpdateForm";
-import { Coach } from "@prisma/client";
+import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 
-const ProfileDetails = ({ coach }) => {
+const ProfileDetails = ({ coach }: UpdateCoach) => {
   let id = coach.id;
   const {
     data: profile,
@@ -44,7 +46,7 @@ const ProfileDetails = ({ coach }) => {
     }
   );
 
-  const handleRemove = (specialtyId) => {
+  const handleRemove = (specialtyId: number) => {
     try {
       removeSpecialty({
         variables: {
@@ -161,7 +163,7 @@ const ProfileDetails = ({ coach }) => {
             </Typography>
           )}
           <Box>
-            {profile.coach.specialties?.map((specialty) => {
+            {profile.coach.specialties?.map((specialty: Specialty) => {
               return (
                 <Chip
                   icon={<SportsFootballIcon />}

@@ -1,11 +1,10 @@
-export default interface coach {
+export default interface UpdateCoach {
   coach: {
-    coach: string;
     id: number;
     email: string;
-    name: true;
+    name: string;
     phone: string;
-    website: true;
+    website: string;
     street: string;
     streetNumber: string;
     zip: string;
@@ -14,5 +13,5 @@ export default interface coach {
       id: string;
       name: string;
     }[];
-  }[];
+  };
 }

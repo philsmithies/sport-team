@@ -10,7 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import { Box, Chip, Container, Typography } from "@mui/material";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import { UpdateCoach } from "./types";
+import { UpdateCoach, SpecialtyProps } from "./types";
 import { Specialty } from "@prisma/client";
 
 const AddSpecialties = ({ coach }: UpdateCoach) => {
@@ -49,7 +49,7 @@ const AddSpecialties = ({ coach }: UpdateCoach) => {
   useEffect(() => {
     setFilteredSpecialties(
       data?.specialties.filter(
-        ({ id: specialty1 }) =>
+        ({ id: specialty1 }: SpecialtyProps) =>
           !coach.specialties.some(
             ({ id: specialty2 }) => specialty1 === specialty2
           )
