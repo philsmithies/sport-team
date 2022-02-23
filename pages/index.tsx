@@ -18,6 +18,7 @@ import {
   Container,
   Button,
 } from "@mui/material";
+import SelectedCoach from "../types/SelectedCoach";
 
 const Home: NextPage = () => {
   const [take, setTake] = useState(15);
@@ -30,9 +31,17 @@ const Home: NextPage = () => {
     }
   );
 
-  /**
-   * !useLazyQuery's loading doesn't toggle true, seems like its regular problem with Apollo Client
-   */
+  async function updateFeed() {
+    const currentLength = data.coaches.length;
+    await fetchMore({
+      variables: {
+        offset: currentLength,
+        take,
+      },
+    }).then(() => {
+      setTake(currentLength + take);
+    });
+  }
 
   const [
     filterSports,
@@ -104,63 +113,27 @@ const Home: NextPage = () => {
 
         {filteredData && (
           <>
-            {filteredData?.coaches.map((coach) => (
+            {filteredData?.coaches.map((coach: SelectedCoach) => (
               <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
             ))}
-            <Container sx={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                size="large"
-                variant="outlined"
-                onClick={() => {
-                  console.log("clicked");
-                  const currentLength = filteredData.coaches.length;
-                  fetchMoreFilteredData({
-                    variables: {
-                      offset: currentLength,
-                      take,
-                    },
-                  }).then((fetchMoreResult) => {
-                    setFilteredTake(
-                      currentLength + fetchMoreResult.data["coaches"].length
-                    );
-                  });
-                }}
-              >
-                Fetch More Coaches...
-              </Button>
-            </Container>
           </>
         )}
 
         {!filteredData && (
           <>
-            {data?.coaches.map((coach) => (
+            {data?.coaches.map((coach: SelectedCoach) => (
               <CoachInfoCard isHearted={false} coach={coach} key={coach.id} />
             ))}
             <Container sx={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                size="large"
-                variant="outlined"
-                onClick={() => {
-                  console.log("clicked");
-                  const currentLength = data.coaches.length;
-                  fetchMore({
-                    variables: {
-                      offset: currentLength,
-                      take,
-                    },
-                  }).then((fetchMoreResult) => {
-                    setTake(
-                      currentLength + fetchMoreResult.data["coaches"].length
-                    );
-                  });
-                }}
-              >
+              <Button size="large" variant="outlined" onClick={updateFeed}>
                 Fetch More Coaches...
               </Button>
             </Container>
           </>
         )}
+        <Button size="large" variant="outlined" onClick={updateFeed}>
+          More Clicks...
+        </Button>
       </Container>
     </>
   );
