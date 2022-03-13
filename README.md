@@ -11,7 +11,6 @@ A Coach viewing application built using Next.js, Typescript and GraphQL.
 ## Table of Contents
 
 - [Overview](#overview)
-- [What's the Challenge About](#challenge)
 - [Features](#features)
 - [Further Goals](#further-goals)
 - [Use Case](#use-case)
@@ -20,13 +19,6 @@ A Coach viewing application built using Next.js, Typescript and GraphQL.
   - [Setting Up The Database](#setting-up-database)
   - [Setting up Dev Server](#dev-server)
   - [Generate Types](#types)
-
-<!-- Challenge -->
-
-## What's the challenge about
-
-This project is created by Sport-Thieme to help us to determine, if certain applicants are ready to work in our enviroment.
-We want do see how familiar you are with typescript, graphql and next.
 
 <!-- Features -->
 
@@ -51,28 +43,20 @@ We want do see how familiar you are with typescript, graphql and next.
 
 ## Use Case
 
-Sport-Thieme displays a dynamic list of sports coaches on the website. In order to be able to create new and edit existing entries, we want to provide an interface for our employees to accomplish those tasks. Your assignment is to provide a solution for this use case.
+Sport Team displays a dynamic list of sports coaches on the website. In order to be able to create new and edit existing entries, we provide an interface for our team to accomplish those tasks.
 
 <!-- Todos -->
 
 ## Todos
 
-The first 5 todos are required, all the others are bonus tasks. Please don't change anything backend related and use the graph as shipped in /pages/api.
-
-- [x] Write graphql queries against https://localhost:3000/api<br>Use your queries manually or with the already installed codegen `yarn generate:types`.<br>You got one query in the graphql folder for free.
+- [x] Write graphql queries against https://localhost:3000/api
 - [x] Create a UI to list all our coaches at Sport-Thieme with the Material-UI components (already installed)
 - [x] Create a UI for a single coach with the Material-UI components (already installed)
 - [x] Implement at least one mutation updating the coaches
 - [x] Implement a mutation for adding specialties to the coach
-
-### Bonus tasks for style points 😎
-
 - [x] Implement pagination or endless scrolling to the coach list
 - [x] Implement sorting to the coach list
 - [x] Use Apollo reactive variables to create a local state to mark coaches as favourite
-
-### Beyond bonus
-
 - [x] Implement SSG or SSR
 
 <!-- Installation -->
@@ -111,7 +95,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 ## Generate types
 
 As we are in a local app with a local server, please run the generate:types yourself.
-In other sport-thieme projects, this will be done pre dev server start automatically.
+In other sport-team projects, this will be done pre dev server start automatically.
 
 Please be aware that the graphql server must be running (`yarn dev`) for this to work.
 
