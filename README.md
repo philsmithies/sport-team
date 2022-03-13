@@ -1,4 +1,4 @@
-# Sport-Thieme Code Challenge
+# Sport Team 
 
 A Coach viewing application built using Next.js, Typescript and GraphQL.
 
