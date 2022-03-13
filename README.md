@@ -20,7 +20,6 @@ A Coach viewing application built using Next.js, Typescript and GraphQL.
   - [Setting Up The Database](#setting-up-database)
   - [Setting up Dev Server](#dev-server)
   - [Generate Types](#types)
-- [How to Submit](#submit)
 
 <!-- Challenge -->
 
@@ -120,15 +119,6 @@ Please be aware that the graphql server must be running (`yarn dev`) for this to
 yarn generate:types
 ```
 
-<!-- Submit -->
-
-## How to submit your assignment
-
-Please clone our repository and implement tasks described in the [readme](#Todos). Do not fork it and to not create pull requests as those will be publicly visible and other candidates might see it.
-
-After finishing the assignment, please send us a link to your repository or a zip file replying to the e-mail with the coding challenge.
-
-<div align="center">
 
 ---
 
