@@ -4,10 +4,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "vercelBuild": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "setup": "yarn prisma migrate dev --name init",
     "predev": "yarn generate:prisma",
+    "postinstall": "yarn prisma generate",
     "generate:prisma": "yarn prisma generate",
     "generate:types": "graphql-codegen --config codegen.yml"
   },
@@ -22,6 +24,7 @@
     "@mui/material": "^5.4.0",
     "@mui/styles": "^5.4.2",
     "@prisma/client": "3.8.1",
+    "@supabase/supabase-js": "^1.31.1",
     "apollo-server-micro": "3.6.3",
     "apollo3-cache-persist": "^0.14.0",
     "class-validator": "0.13.2",

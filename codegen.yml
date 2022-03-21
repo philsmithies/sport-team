@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://localhost:3000/api"
+schema: "https://sport-team.vercel.app/api"
 documents: "graphql/**/!(*.d).{ts,tsx}"
 generates:
   generated/graphql-generated-types.ts:

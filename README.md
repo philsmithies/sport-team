@@ -2,6 +2,8 @@
 
 A Coach viewing application built using Next.js, Typescript and GraphQL.
 
+Deployment using Vercel and Supabase Postgres Database.
+
 ![Home](./public/images/Home_Readme.png)
 
 ![Edit](./public/images/Edit_Readme.png)

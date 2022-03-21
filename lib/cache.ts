@@ -5,7 +5,7 @@ import { offsetLimitPagination } from "@apollo/client/utilities";
 export const favouritedCoachesVar = makeVar([] as any);
 
 export const client = new ApolloClient({
-  uri: "http://localhost:3000/api",
+  uri: "https://sport-team.vercel.app/api",
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
