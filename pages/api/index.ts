@@ -6,6 +6,7 @@ import * as tq from "type-graphql";
 import { context } from "./context";
 import { resolvers } from "@generated/type-graphql";
 import RandomCoachResolver from "./RandomCoachResolver";
+import { RequestHandler } from "micro";
 
 const schema = await tq.buildSchema({
   resolvers: [...resolvers, RandomCoachResolver],
@@ -48,4 +49,4 @@ const handler: NextApiHandler = async (req, res) => {
   return apolloServerHandler(req, res);
 };
 
-export default cors()(handler);
+export default cors()(handler as RequestHandler);
