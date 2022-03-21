@@ -95,7 +95,7 @@ const ProfileDetails = ({ coach }: UpdateCoach): JSX.Element => {
   return (
     <>
       <Head>
-        <title>Sports Thieme: {profile.coach.name}</title>
+        <title>Sport Team: {profile.coach.name}</title>
       </Head>
       <Container
         maxWidth="sm"

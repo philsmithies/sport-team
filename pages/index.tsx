@@ -98,7 +98,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Sports Thieme: The Coaches</title>
+        <title>Sport Team: The Coaches</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
         <Typography variant="h4" sx={{ marginBottom: 4 }}>

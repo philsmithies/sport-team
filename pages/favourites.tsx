@@ -7,7 +7,7 @@ const Favourites: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Sports Thieme: Favourite Coaches</title>
+        <title>Sport Team: Favourite Coaches</title>
       </Head>
       <Container maxWidth="md" sx={{ marginTop: 5, marginBottom: 20 }}>
         <Typography variant="h4">Favourited Coaches</Typography>
