@@ -25,6 +25,8 @@
     "apollo-server-micro": "3.6.3",
     "apollo3-cache-persist": "^0.14.0",
     "class-validator": "0.13.2",
+    "dotenv": "^16.0.0",
+    "dotenv-cli": "^5.0.0",
     "graphql": "15.8.0",
     "graphql-fields": "2.0.3",
     "graphql-relay": "^0.10.0",
